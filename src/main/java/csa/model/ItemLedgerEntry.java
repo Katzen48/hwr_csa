@@ -34,7 +34,7 @@ public class ItemLedgerEntry
 	private Date postingDate;
 	
 	@NonNull
-	private String sourceDocType;
+	private SourceDocType sourceDocType;
 	
 	@NonNull
 	private int sourceDocNo;
