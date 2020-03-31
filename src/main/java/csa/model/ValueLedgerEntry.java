@@ -14,12 +14,16 @@ public class ValueLedgerEntry
 	
 	@NonNull
 	private Employee employee;
+	
 	@NonNull
 	private float amount;
+	
 	@NonNull
 	private Date postingDate;
+	
 	@NonNull
-	private String sourceDocType;
+	private SourceDocType sourceDocType;
+	
 	@NonNull
 	private int sourceDocNo;
 }
