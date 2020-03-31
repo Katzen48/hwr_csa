@@ -25,5 +25,12 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    
+    // Lombok for getters/setters/nonnull
+	compileOnly 'org.projectlombok:lombok:1.18.8'
+	//annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    
+    
+    compile group: 'org.jdbi', name: 'jdbi3-core', version: '3.12.2'
 }
 
