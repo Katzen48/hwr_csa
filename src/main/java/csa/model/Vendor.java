@@ -11,10 +11,10 @@ public class Vendor
 	private int id;
 	
 	@NonNull
-	private String Name;
+	private String name;
 	
 	@NonNull
-	private String Address;
+	private String address;
 	
 	@NonNull
 	private int postCode;
