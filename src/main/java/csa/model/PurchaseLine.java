@@ -1,5 +1,9 @@
 package csa.model;
 
+import java.beans.ConstructorProperties;
+
+import org.jdbi.v3.core.mapper.Nested;
+
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +18,9 @@ public class PurchaseLine
 	private PurchaseHeader purchaseHeader;
 	
 	@NonNull
+	private ItemVariant itemVariant;
+	
+	@NonNull
 	private float price;
 	
 	@NonNull
@@ -24,4 +31,26 @@ public class PurchaseLine
 	
 	@NonNull
 	private boolean delivered;
+	
+	@ConstructorProperties({"id", "purchase_header_id", "item_variant_id", "price", "quantity", "line_amount", "delivered"})
+	public PurchaseLine(int id, @Nested("purchase_header") @NonNull PurchaseHeader purchaseHeader, @Nested("item_variant") @NonNull ItemVariant itemVariant, float price, int quantity, float lineAmount, boolean delivered)
+	{
+		this.id = id;
+		this.purchaseHeader = purchaseHeader;
+		this.itemVariant = itemVariant;
+		this.price = price;
+		this.quantity = quantity;
+		this.lineAmount = lineAmount;
+		this.delivered = delivered;
+	}
+	
+	public int getPurchaseHeaderId()
+	{
+		return purchaseHeader.getId();
+	}
+	
+	public int getItemVariantId()
+	{
+		return itemVariant.getId();
+	}
 }

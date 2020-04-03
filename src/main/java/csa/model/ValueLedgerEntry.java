@@ -1,25 +1,28 @@
 package csa.model;
 
-import java.util.Date;
+import java.beans.ConstructorProperties;
+import java.time.LocalDate;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor(onConstructor_={@ConstructorProperties({"entry_no", "employee_id", "amount", "posting_date", "source_doc_type", "source_doc_no"})})
 public class ValueLedgerEntry 
 {
-	private int entry_no;
+	private int entryNo;
 	
 	@NonNull
-	private Employee employee;
+	private int employeeId;
 	
 	@NonNull
 	private float amount;
 	
 	@NonNull
-	private Date postingDate;
+	private LocalDate postingDate;
 	
 	@NonNull
 	private SourceDocType sourceDocType;

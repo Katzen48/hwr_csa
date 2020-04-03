@@ -28,9 +28,15 @@ dependencies {
     
     // Lombok for getters/setters/nonnull
 	compileOnly 'org.projectlombok:lombok:1.18.8'
-	//annotationProcessor 'org.projectlombok:lombok:1.18.8'
+	//annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+	compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.0'
     
     
     compile group: 'org.jdbi', name: 'jdbi3-core', version: '3.12.2'
 }
 
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
