@@ -3,8 +3,6 @@ package csa.model;
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
-import org.jdbi.v3.core.mapper.Nested;
-
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +18,7 @@ public class SalesHeader {
 	private LocalDate postingDate;
 	
 	@ConstructorProperties({"id", "employee_id", "posting_date"})
-	public SalesHeader(int id, @Nested("employee") @NonNull Employee employee, @NonNull LocalDate postingDate)
+	public SalesHeader(int id, @NonNull Employee employee, @NonNull LocalDate postingDate)
 	{
 		this.id = id;
 		this.employee = employee;

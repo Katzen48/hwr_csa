@@ -91,7 +91,7 @@ public interface DatabaseAdapter extends Closeable
 	boolean deleteVendor(Vendor vendor);
 	
 	// Utils
-	boolean createEmptyTemporaryTable(String table);
+	boolean createEmptyTemporaryTable(String table, String key);
 	boolean copyToTemporaryTable(String table);
 	boolean dropTemporaryTable(String table);
 	void beginTransaction();

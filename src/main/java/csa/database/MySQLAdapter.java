@@ -1,11 +1,15 @@
 package csa.database;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.mapper.ColumnMapper;
 import org.jdbi.v3.core.mapper.reflect.ConstructorMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 import org.jdbi.v3.core.transaction.TransactionIsolationLevel;
 
 import csa.model.Employee;
@@ -49,6 +53,15 @@ public class MySQLAdapter implements DatabaseAdapter
 		handle.registerRowMapper(ConstructorMapper.factory(SalesLine.class));
 		handle.registerRowMapper(ConstructorMapper.factory(ValueLedgerEntry.class));
 		handle.registerRowMapper(ConstructorMapper.factory(Vendor.class));
+		
+		handle.registerColumnMapper(new ColumnMapper<Item>()
+		{
+			@Override
+			public Item map(ResultSet r, int columnNumber, StatementContext ctx) throws SQLException
+			{
+				return getItem(r.getInt(columnNumber));
+			}
+		});
 	}
 
 	@Override
@@ -466,9 +479,9 @@ public class MySQLAdapter implements DatabaseAdapter
 	
 
 	@Override
-	public boolean createEmptyTemporaryTable(String table)
+	public boolean createEmptyTemporaryTable(String table, String key)
 	{
-		return handle.createUpdate(String.format("CREATE TEMPORARY TABLE %s (entry_no INT AUTO_INCREMENT PRIMARY KEY) SELECT * FROM %s LIMIT 0", table, table))
+		return handle.createUpdate(String.format("CREATE TEMPORARY TABLE %s (%s INT AUTO_INCREMENT PRIMARY KEY) SELECT * FROM %s LIMIT 0", table, key, table))
 				.execute() > 0;
 	}
 	

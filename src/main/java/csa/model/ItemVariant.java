@@ -2,8 +2,6 @@ package csa.model;
 
 import java.beans.ConstructorProperties;
 
-import org.jdbi.v3.core.mapper.Nested;
-
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +21,7 @@ public class ItemVariant {
 	private String size;
 
 	@ConstructorProperties({"id", "item_id", "name", "price", "size"})
-	public ItemVariant(int id, @Nested("item") @NonNull Item item, @NonNull String name, float price, @NonNull String size)
+	public ItemVariant(int id, @NonNull Item item, @NonNull String name, float price, @NonNull String size)
 	{
 		this.id = id;
 		this.item = item;

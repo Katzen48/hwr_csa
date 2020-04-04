@@ -32,7 +32,7 @@ public class TestItemLedgerEntry
 		dbAdapter.connect();
 		
 		// Prepare Temporary Table
-		dbAdapter.createEmptyTemporaryTable("item_ledger_entry");
+		dbAdapter.createEmptyTemporaryTable("item_ledger_entry", "entry_no");
 		
 		EXPECTED_ITEM_LEDGER_ENTRIES = new ItemLedgerEntry[] { 	new ItemLedgerEntry(1, 1, 1, "Jens 'Gerda'", "Jeans 'Gerda' Blau Gestreift S", 49.99F, 10, LocalDate.of(2020, 03, 30), SourceDocType.PURCHASE, 0),
 			new ItemLedgerEntry(2, 1, 1, "Jens 'Gerda'", "Jeans 'Gerda' Blau Gestreift S", 79.99F, -1, LocalDate.of(2020, 03, 31), SourceDocType.SALE, 1),

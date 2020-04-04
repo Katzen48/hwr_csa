@@ -2,8 +2,6 @@ package csa.model;
 
 import java.beans.ConstructorProperties;
 
-import org.jdbi.v3.core.mapper.Nested;
-
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +28,7 @@ public class SalesLine
 	private float lineAmount;
 	
 	@ConstructorProperties({"id", "sales_header_id", "item_variant_id", "item_price", "quantity", "line_amount"})
-	public SalesLine(int id, @Nested("sales_header") @NonNull SalesHeader salesHeader, @Nested("item_variant") @NonNull ItemVariant itemVariant, float itemPrice, int quantity, float lineAmount)
+	public SalesLine(int id, @NonNull SalesHeader salesHeader, @NonNull ItemVariant itemVariant, float itemPrice, int quantity, float lineAmount)
 	{
 		this.id = id;
 		this.salesHeader = salesHeader;
