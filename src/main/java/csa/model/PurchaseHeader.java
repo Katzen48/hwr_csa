@@ -1,6 +1,7 @@
 package csa.model;
 
-import java.util.Date;
+import java.beans.ConstructorProperties;
+import java.time.LocalDate;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -15,8 +16,21 @@ public class PurchaseHeader
 	@NonNull
 	private Vendor vendor;
 	@NonNull
-	private Date postingDate;
+	private LocalDate postingDate;
 	@NonNull
-	private Date deliveryDate;
+	private LocalDate deliveryDate;
 	
+	@ConstructorProperties({"id", "vendor_id", "posting_date", "delivery_date"})
+	public PurchaseHeader(int id, @NonNull Vendor vendor, @NonNull LocalDate postingDate, @NonNull LocalDate deliveryDate)
+	{
+		this.id = id;
+		this.vendor = vendor;
+		this.postingDate = postingDate;
+		this.deliveryDate = deliveryDate;
+	}
+	
+	public int getVendorId()
+	{
+		return vendor.getId();
+	}
 }	
