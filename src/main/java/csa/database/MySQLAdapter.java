@@ -62,6 +62,51 @@ public class MySQLAdapter implements DatabaseAdapter
 				return getItem(r.getInt(columnNumber));
 			}
 		});
+		
+		handle.registerColumnMapper(new ColumnMapper<PurchaseHeader>()
+		{
+			@Override
+			public PurchaseHeader map(ResultSet r, int columnNumber, StatementContext ctx) throws SQLException
+			{
+				return getPurchaseHeader(r.getInt(columnNumber));
+			}
+		});
+		
+		handle.registerColumnMapper(new ColumnMapper<ItemVariant>()
+		{
+			@Override
+			public ItemVariant map(ResultSet r, int columnNumber, StatementContext ctx) throws SQLException
+			{
+				return getItemVariant(r.getInt(columnNumber));
+			}
+		});
+		
+		handle.registerColumnMapper(new ColumnMapper<Employee>()
+		{
+			@Override
+			public Employee map(ResultSet r, int columnNumber, StatementContext ctx) throws SQLException
+			{
+				return getEmployee(r.getInt(columnNumber));
+			}
+		});
+		
+		handle.registerColumnMapper(new ColumnMapper<SalesHeader>()
+		{
+			@Override
+			public SalesHeader map(ResultSet r, int columnNumber, StatementContext ctx) throws SQLException
+			{
+				return getSalesHeader(r.getInt(columnNumber));
+			}
+		});
+		
+		handle.registerColumnMapper(new ColumnMapper<Vendor>()
+		{
+			@Override
+			public Vendor map(ResultSet r, int columnNumber, StatementContext ctx) throws SQLException
+			{
+				return getVendor(r.getInt(columnNumber));
+			}
+		});
 	}
 
 	@Override
