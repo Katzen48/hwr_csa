@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
   }
 
   public async onEmployees() {
-    // await this.router.navigate(['items']);
+    await this.router.navigate(['employees']);
   }
 
   public async onVendors() {

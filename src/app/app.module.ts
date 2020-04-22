@@ -16,6 +16,8 @@ import { MatTableModule } from '@angular/material/table';
 import { ItemVariantEditComponent } from './pages/item/item-variant-edit/item-variant-edit.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EmployeeComponent } from './pages/employee/employee.component';
+import { EmployeeDetailComponent } from './pages/employee/employee-detail/employee-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ItemComponent,
     MenuComponent,
     ItemDetailComponent,
-    ItemVariantEditComponent
+    ItemVariantEditComponent,
+    EmployeeComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,

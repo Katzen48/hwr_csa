@@ -1,0 +1,13 @@
+<div fxLayout="column" fxLayoutGap="20px">
+  <app-menu></app-menu>
+
+  <button mat-flat-button
+          color="accent"
+          (click)="onNewEmployee()"
+          style="width: fit-content">Neuer Verkäufer
+  </button>
+
+  <div *ngFor="let employee of employeeService.employees">
+    <button mat-flat-button (click)="onShowEmployee(employee.id)">{{ employee.givenName }} {{ employee.surname }} </button>
+  </div>
+</div>
