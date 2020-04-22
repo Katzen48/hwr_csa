@@ -14,6 +14,10 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public async onDashboard() {
+    await this.router.navigate(['dashboard']);
+  }
+
   public async onStock() {
     // await this.router.navigate(['items']);
   }

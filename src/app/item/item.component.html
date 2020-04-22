@@ -1,1 +1,9 @@
-<p>item works!</p>
+<div fxLayout="column" fxLayoutGap="20px">
+  <app-menu></app-menu>
+
+  <button mat-flat-button color="accent" style="width: fit-content">Neuer Artikel</button>
+
+  <div *ngFor="let item of itemService.items">
+    <button mat-flat-button>{{ item }}</button>
+  </div>
+</div>
