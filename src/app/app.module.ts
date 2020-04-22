@@ -3,19 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ItemComponent } from './item/item.component';
+import { ItemComponent } from './pages/item/item.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-import { ItemDetailComponent } from './item/item-detail/item-detail.component';
+import { ItemDetailComponent } from './pages/item/item-detail/item-detail.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { ItemVariantEditComponent } from './item/item-variant-edit/item-variant-edit.component';
+import { ItemVariantEditComponent } from './pages/item/item-variant-edit/item-variant-edit.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatTableModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

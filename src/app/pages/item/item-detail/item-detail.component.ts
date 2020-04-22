@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ItemVariantEditComponent } from '../item-variant-edit/item-variant-edit.component';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { ItemService } from '../../services/item.service';
+import { ItemService } from '../../../services/item.service';
 
 @Component({
   selector: 'app-item-detail',

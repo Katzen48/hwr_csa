@@ -1,0 +1,25 @@
+<div mat-dialog-title *ngIf="data">Artikelvariante bearbeiten</div>
+<div mat-dialog-title *ngIf="!data">Neue Artikelvariante</div>
+
+<div mat-dialog-content fxLayout="column" fxLayoutGap="16px">
+  <mat-form-field appearance="fill" class="long-form-field">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="data.name">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="long-form-field">
+    <mat-label>Preis in €</mat-label>
+    <input matInput [(ngModel)]="data.price">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="long-form-field">
+    <mat-label>Größe</mat-label>
+    <input matInput [(ngModel)]="data.size">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutGap="20px">
+  <button mat-raised-button color="primary">Speichern</button>
+  <button mat-raised-button (click)="onCancelClick()">Abbrechen</button>
+</div>
+
