@@ -3,6 +3,9 @@ package csa.model;
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,14 @@ public class PurchaseHeader
 		this.deliveryDate = deliveryDate;
 	}
 	
+	@JsonCreator
+	public PurchaseHeader(LocalDate postingDate, LocalDate deliveryDate)
+	{
+		this.postingDate = postingDate;
+		this.deliveryDate = deliveryDate;
+	}
+	
+	@JsonIgnore
 	public int getVendorId()
 	{
 		return vendor.getId();

@@ -6,8 +6,10 @@
  * user guide available at https://docs.gradle.org/3.5/userguide/java_library_plugin.html
  */
 
-// Apply the java-library plugin to add support for Java Library
-apply plugin: 'java-library'
+plugins {
+  id "java"
+  id "application"
+}
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -16,9 +18,11 @@ repositories {
     jcenter()
 }
 
+mainClassName = 'csa.Main'
+
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
+    implementation 'org.apache.commons:commons-math3:3.6.1'
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:21.0'
@@ -35,6 +39,21 @@ dependencies {
     
     
     compile group: 'org.jdbi', name: 'jdbi3-core', version: '3.12.2'
+    
+    // REST Server
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.+'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.+'
+    compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.+'
+    compile 'org.glassfish.grizzly:grizzly-http-server:2.+'
+    compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.+'
+    compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-servlet:2.+'
+    compile 'org.glassfish.jersey.inject:jersey-hk2:2.+'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
 }
 
 tasks.withType(JavaCompile) {

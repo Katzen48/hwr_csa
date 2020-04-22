@@ -79,7 +79,7 @@ public class TestEmployee
 	{
 		generatedEmployee = new Employee(EXPECTED_EMPLOYEES[EXPECTED_EMPLOYEES.length - 1].getId() + 1, "Michael", "Bernhard");
 		
-		assertTrue(dbAdapter.createEmployee(generatedEmployee));
+		assertNotNull(dbAdapter.createEmployee(generatedEmployee));
 	}
 	
 	@Test

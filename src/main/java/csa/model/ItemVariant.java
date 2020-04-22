@@ -2,6 +2,9 @@ package csa.model;
 
 import java.beans.ConstructorProperties;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,15 @@ public class ItemVariant {
 		this.size = size;
 	}
 	
+	@JsonCreator
+	public ItemVariant(String name, float price, String size)
+	{
+		this.name = name;
+		this.price = price;
+		this.size = size;
+	}
+	
+	@JsonIgnore
 	public int getItemId()
 	{
 		return item.getId();
