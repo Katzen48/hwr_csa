@@ -1,3 +1,7 @@
 .tag {
   font-weight: bold;
 }
+
+.hover {
+  cursor: pointer;
+}
