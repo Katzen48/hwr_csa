@@ -1,1 +1,35 @@
-<p>vendor-edit works!</p>
+<div fxLayout="column" fxLayoutGap="20px">
+  <app-menu></app-menu>
+
+  <form [formGroup]="vendorFormGroup" fxLayout="column" fxLayoutGap="16px">
+    <mat-form-field appearance="fill" class="long-form-field">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="long-form-field">
+      <mat-label>Adresse</mat-label>
+      <input matInput formControlName="address">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="long-form-field">
+      <mat-label>PLZ</mat-label>
+      <input matInput formControlName="postCode">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="long-form-field">
+      <mat-label>Stadt</mat-label>
+      <input matInput formControlName="city">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="long-form-field">
+      <mat-label>Land</mat-label>
+      <input matInput formControlName="country">
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="20px">
+      <button mat-flat-button color="accent">Speichern</button>
+      <button mat-raised-button>Abbrechen</button>
+    </div>
+  </form>
+</div>

@@ -11,4 +11,8 @@ export class VendorService {
   public getVendors() {
     this.vendors = [{id: 1, name: 'Meyers', address: 'Hinter den Feldern 1', postCode: 12345, city: 'Bremen', country: 'Deutschland'}];
   }
+
+  public getVendorById(id) {
+    return {id: 1, name: 'Heinrich', address: 'Hinter den Feldern 1', postCode: 12345, city: 'Bremen', country: 'Deutschland'};
+  }
 }
