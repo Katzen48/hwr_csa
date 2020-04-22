@@ -18,6 +18,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { EmployeeDetailComponent } from './pages/employee/employee-detail/employee-detail.component';
+import { VendorComponent } from './pages/vendor/vendor.component';
+import { VendorEditComponent } from './pages/vendor/vendor-edit/vendor-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { EmployeeDetailComponent } from './pages/employee/employee-detail/employ
     ItemDetailComponent,
     ItemVariantEditComponent,
     EmployeeComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    VendorComponent,
+    VendorEditComponent
   ],
   imports: [
     BrowserModule,

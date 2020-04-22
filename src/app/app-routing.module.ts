@@ -5,6 +5,8 @@ import { ItemComponent } from './pages/item/item.component';
 import { ItemDetailComponent } from './pages/item/item-detail/item-detail.component';
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { EmployeeDetailComponent } from './pages/employee/employee-detail/employee-detail.component';
+import { VendorComponent } from './pages/vendor/vendor.component';
+import { VendorEditComponent } from './pages/vendor/vendor-edit/vendor-edit.component';
 
 
 const routes: Routes = [
@@ -35,6 +37,18 @@ const routes: Routes = [
   {
     path: 'employees/employee-detail/:id',
     component: EmployeeDetailComponent,
+  },
+  {
+    path: 'vendors',
+    component: VendorComponent,
+  },
+  {
+    path: 'vendors/vendor-edit',
+    component: VendorEditComponent,
+  },
+  {
+    path: 'vendors/vendor-edit/:id',
+    component: VendorEditComponent,
   },
   {path: '**', redirectTo: 'dashboard'}
 ];
