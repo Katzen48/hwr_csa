@@ -19,42 +19,42 @@ import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.spi.Contract;
 
-import csa.model.Item;
+import csa.model.Vendor;
 import csa.rest.server.RestServer;
-import csa.service.contract.IItemService;
+import csa.service.contract.IVendorService;
 
-@Path(ItemResource.PATH)
+@Path(VendorResource.PATH)
 @Singleton
 @Contract
-public class ItemResource
+public class VendorResource
 {
-	public static final String PATH = "item";
+	public static final String PATH = "vendor";
 	
 	@Inject
-	private IItemService itemService;
+	private IVendorService vendorService;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Item> getItems()
+	public List<Vendor> getVendors()
 	{
-		return itemService.listItems();
+		return vendorService.listVendors();
 	}
 	
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Item getItem(@PathParam("id") int itemId)
+	public Vendor getVendor(@PathParam("id") int vendorId)
 	{
-		return itemService.getItem(itemId);
+		return vendorService.getVendor(vendorId);
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createItem(Item item)
+	public Response createVendor(Vendor vendor)
 	{
 		try
 		{
-			Item result = itemService.createItem(item);
+			Vendor result = vendorService.createVendor(vendor);
 			
 			if(result != null)
 				return Response.created(URI.create(RestServer.BASE_URI + PATH + "/" + result.getId())).build();
@@ -71,9 +71,9 @@ public class ItemResource
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateItem(Item item)
+	public Response updateVendor(Vendor vendor)
 	{
-		if(itemService.updateItem(item))
+		if(vendorService.updateVendor(vendor))
 			return Response.noContent().build();
 		
 		return Response.notModified().build();
@@ -81,14 +81,14 @@ public class ItemResource
 	
 	@DELETE
 	@Path("{id}")
-	public Response deleteItem(@PathParam("id") int id)
+	public Response deleteVendor(@PathParam("id") int id)
 	{
-		Item item = itemService.getItem(id);
+		Vendor vendor = vendorService.getVendor(id);
 		
-		if(item == null)
+		if(vendor == null)
 			return Response.status(Status.NOT_FOUND).build();
 		
-		if(!itemService.deleteItem(item))
+		if(!vendorService.deleteVendor(vendor))
 			return Response.notModified().build();
 		
 		return Response.noContent().build();

@@ -19,42 +19,42 @@ import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.spi.Contract;
 
-import csa.model.Item;
+import csa.model.SalesHeader;
 import csa.rest.server.RestServer;
-import csa.service.contract.IItemService;
+import csa.service.contract.ISalesHeaderService;
 
-@Path(ItemResource.PATH)
+@Path(SalesHeaderResource.PATH)
 @Singleton
 @Contract
-public class ItemResource
+public class SalesHeaderResource
 {
-	public static final String PATH = "item";
+	public static final String PATH = "salesheader";
 	
 	@Inject
-	private IItemService itemService;
+	private ISalesHeaderService salesHeaderService;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Item> getItems()
+	public List<SalesHeader> getSalesHeaders()
 	{
-		return itemService.listItems();
+		return salesHeaderService.listSalesHeaders();
 	}
 	
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Item getItem(@PathParam("id") int itemId)
+	public SalesHeader getSalesHeader(@PathParam("id") int salesHeaderId)
 	{
-		return itemService.getItem(itemId);
+		return salesHeaderService.getSalesHeader(salesHeaderId);
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createItem(Item item)
+	public Response createSalesHeader(SalesHeader salesHeader)
 	{
 		try
 		{
-			Item result = itemService.createItem(item);
+			SalesHeader result = salesHeaderService.createSalesHeader(salesHeader);
 			
 			if(result != null)
 				return Response.created(URI.create(RestServer.BASE_URI + PATH + "/" + result.getId())).build();
@@ -71,9 +71,9 @@ public class ItemResource
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateItem(Item item)
+	public Response updateSalesHeader(SalesHeader salesHeader)
 	{
-		if(itemService.updateItem(item))
+		if(salesHeaderService.updateSalesHeader(salesHeader))
 			return Response.noContent().build();
 		
 		return Response.notModified().build();
@@ -81,14 +81,14 @@ public class ItemResource
 	
 	@DELETE
 	@Path("{id}")
-	public Response deleteItem(@PathParam("id") int id)
+	public Response deleteSalesHeader(@PathParam("id") int id)
 	{
-		Item item = itemService.getItem(id);
+		SalesHeader salesHeader = salesHeaderService.getSalesHeader(id);
 		
-		if(item == null)
+		if(salesHeader == null)
 			return Response.status(Status.NOT_FOUND).build();
 		
-		if(!itemService.deleteItem(item))
+		if(!salesHeaderService.deleteSalesHeader(salesHeader))
 			return Response.notModified().build();
 		
 		return Response.noContent().build();

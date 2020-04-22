@@ -1,6 +1,7 @@
 package csa.rest.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,32 +38,42 @@ public class ItemVariantResource
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getItems(@PathParam("item") int itemId)
+	public Response getItemVariantss(@PathParam("item") int itemId)
 	{
 		Item item = itemService.getItem(itemId);
 		
 		if(item == null)
 			return Response.status(Status.NOT_FOUND).build();
 		
-		return Response.ok(itemVariantService.listByItem(item), MediaType.APPLICATION_JSON).build();
+		List<ItemVariant> variants = itemVariantService.listByItem(item);
+		
+		if(variants.isEmpty())
+			return Response.status(Status.NOT_FOUND).build();
+		
+		return Response.ok(variants, MediaType.APPLICATION_JSON).build();
 	}
 	
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getItem(@PathParam("item") int itemId, @PathParam("id") int id)
+	public Response getItemVariant(@PathParam("item") int itemId, @PathParam("id") int id)
 	{
 		Item item = itemService.getItem(itemId);
 		
 		if(item == null)
 			return Response.status(Status.NOT_FOUND).build();
 		
-		return Response.ok(itemVariantService.getItemVariant(id), MediaType.APPLICATION_JSON).build();
+		ItemVariant variant = itemVariantService.getItemVariant(id);
+		
+		if(variant == null || variant.getItemId() != itemId)
+			return Response.status(Status.NOT_FOUND).build();
+		
+		return Response.ok(variant, MediaType.APPLICATION_JSON).build();
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createItem(@PathParam("item") int itemId, ItemVariant itemVariant)
+	public Response createItemVariant(@PathParam("item") int itemId, ItemVariant itemVariant)
 	{
 		try
 		{
@@ -90,7 +101,7 @@ public class ItemVariantResource
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateItem(@PathParam("item") int itemId, ItemVariant itemVariant)
+	public Response updateItemVariant(@PathParam("item") int itemId, ItemVariant itemVariant)
 	{
 		Item item = itemService.getItem(itemId);
 		
@@ -105,7 +116,7 @@ public class ItemVariantResource
 	
 	@DELETE
 	@Path("{id}")
-	public Response deleteItem(@PathParam("item") int itemId, @PathParam("id") int id)
+	public Response deleteItemVariant(@PathParam("item") int itemId, @PathParam("id") int id)
 	{
 		Item item = itemService.getItem(itemId);
 		
@@ -114,7 +125,7 @@ public class ItemVariantResource
 		
 		ItemVariant itemVariant = itemVariantService.getItemVariant(id);
 		
-		if(itemVariant == null)
+		if(itemVariant == null || itemVariant.getItemId() != itemId)
 			return Response.status(Status.NOT_FOUND).build();
 		
 		if(!itemVariantService.deleteItemVariant(itemVariant))

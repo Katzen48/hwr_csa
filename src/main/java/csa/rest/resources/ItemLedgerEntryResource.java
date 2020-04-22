@@ -15,11 +15,13 @@ import org.glassfish.jersey.spi.Contract;
 import csa.model.ItemLedgerEntry;
 import csa.service.contract.IItemLedgerEntryService;
 
-@Path("itemledgerentry")
+@Path(ItemLedgerEntryResource.PATH)
 @Singleton
 @Contract
 public class ItemLedgerEntryResource
-{	
+{
+	public static final String PATH = "itemledgerentry";
+	
 	@Inject
 	private IItemLedgerEntryService itemLedgerEntryService;
 	

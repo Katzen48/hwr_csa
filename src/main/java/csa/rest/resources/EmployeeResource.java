@@ -23,11 +23,13 @@ import csa.model.Employee;
 import csa.rest.server.RestServer;
 import csa.service.contract.IEmployeeService;
 
-@Path("employee")
+@Path(EmployeeResource.PATH)
 @Singleton
 @Contract
 public class EmployeeResource
-{	
+{
+	public static final String PATH = "employee";
+	
 	@Inject
 	private IEmployeeService employeeService;
 	
@@ -55,7 +57,7 @@ public class EmployeeResource
 			Employee result = employeeService.createEmployee(employee);
 			
 			if(result != null)
-				return Response.created(URI.create(RestServer.BASE_URI + "employee/" + result.getId())).build();
+				return Response.created(URI.create(RestServer.BASE_URI + PATH + "/" + result.getId())).build();
 			
 			return Response.status(Status.BAD_REQUEST).build();
 		}

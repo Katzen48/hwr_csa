@@ -19,42 +19,42 @@ import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.spi.Contract;
 
-import csa.model.Item;
+import csa.model.PurchaseHeader;
 import csa.rest.server.RestServer;
-import csa.service.contract.IItemService;
+import csa.service.contract.IPurchaseHeaderService;
 
-@Path(ItemResource.PATH)
+@Path(PurchaseHeaderResource.PATH)
 @Singleton
 @Contract
-public class ItemResource
+public class PurchaseHeaderResource
 {
-	public static final String PATH = "item";
+	public static final String PATH = "purchaseheader";
 	
 	@Inject
-	private IItemService itemService;
+	private IPurchaseHeaderService purchaseHeaderService;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Item> getItems()
+	public List<PurchaseHeader> getPurchaseHeaders()
 	{
-		return itemService.listItems();
+		return purchaseHeaderService.listPurchaseHeaders();
 	}
 	
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Item getItem(@PathParam("id") int itemId)
+	public PurchaseHeader getPurchaseHeader(@PathParam("id") int purchaseHeaderId)
 	{
-		return itemService.getItem(itemId);
+		return purchaseHeaderService.getPurchaseHeader(purchaseHeaderId);
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createItem(Item item)
+	public Response createPurchaseHeader(PurchaseHeader purchaseHeader)
 	{
 		try
 		{
-			Item result = itemService.createItem(item);
+			PurchaseHeader result = purchaseHeaderService.createPurchaseHeader(purchaseHeader);
 			
 			if(result != null)
 				return Response.created(URI.create(RestServer.BASE_URI + PATH + "/" + result.getId())).build();
@@ -71,9 +71,9 @@ public class ItemResource
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateItem(Item item)
+	public Response updatePurchaseHeader(PurchaseHeader purchaseHeader)
 	{
-		if(itemService.updateItem(item))
+		if(purchaseHeaderService.updatePurchaseHeader(purchaseHeader))
 			return Response.noContent().build();
 		
 		return Response.notModified().build();
@@ -81,14 +81,14 @@ public class ItemResource
 	
 	@DELETE
 	@Path("{id}")
-	public Response deleteItem(@PathParam("id") int id)
+	public Response deletePurchaseHeader(@PathParam("id") int id)
 	{
-		Item item = itemService.getItem(id);
+		PurchaseHeader purchaseHeader = purchaseHeaderService.getPurchaseHeader(id);
 		
-		if(item == null)
+		if(purchaseHeader == null)
 			return Response.status(Status.NOT_FOUND).build();
 		
-		if(!itemService.deleteItem(item))
+		if(!purchaseHeaderService.deletePurchaseHeader(purchaseHeader))
 			return Response.notModified().build();
 		
 		return Response.noContent().build();
