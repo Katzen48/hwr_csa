@@ -10,6 +10,6 @@ export class ItemService {
   }
 
   public getItems() {
-    this.items = ['Jeans Gerda', 'T-Shirt Gerda'];
+    this.items = [{id: 0, name: 'Jeans Gerda'}, {id: 1, name: 'T-Shirt Gerda'}];
   }
 }

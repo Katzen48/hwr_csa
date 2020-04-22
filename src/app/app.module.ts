@@ -9,13 +9,15 @@ import { ItemComponent } from './item/item.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { ItemDetailComponent } from './item/item-detail/item-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     ItemComponent,
-    MenuComponent
+    MenuComponent,
+    ItemDetailComponent
   ],
   imports: [
     BrowserModule,

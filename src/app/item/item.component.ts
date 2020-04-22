@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../services/item.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item',
@@ -8,11 +9,18 @@ import { ItemService } from '../services/item.service';
 })
 export class ItemComponent implements OnInit {
 
-  constructor(public itemService: ItemService) {
+  constructor(public itemService: ItemService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.itemService.getItems();
   }
 
+  public async onNewItem() {
+    await this.router.navigate(['items/item-detail']);
+  }
+
+  public async onShowItem(id: number) {
+    await this.router.navigate([`items/item-detail/${id}`]);
+  }
 }
