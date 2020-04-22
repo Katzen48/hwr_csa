@@ -13,6 +13,9 @@ import { ItemDetailComponent } from './item/item-detail/item-detail.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { ItemVariantEditComponent } from './item/item-variant-edit/item-variant-edit.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { MatTableModule } from '@angular/material/table';
     DashboardComponent,
     ItemComponent,
     MenuComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    ItemVariantEditComponent
   ],
   imports: [
     BrowserModule,
@@ -30,9 +34,12 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

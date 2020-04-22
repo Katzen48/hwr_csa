@@ -3,19 +3,19 @@
 
   <mat-form-field class="long-form-field" appearance="fill">
     <mat-label>Name</mat-label>
-    <input matInput>
+    <input matInput [formControl]="itemName">
   </mat-form-field>
 
-  <div>Varianten</div>
+  <div class="heading">Varianten:</div>
 
-  <table mat-table>
+  <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name</th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> Preis</th>
+      <th mat-header-cell *matHeaderCellDef> Preis in €</th>
       <td mat-cell *matCellDef="let element"> {{element.price}} </td>
     </ng-container>
 
@@ -24,13 +24,24 @@
       <td mat-cell *matCellDef="let element"> {{element.size}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Aktionen</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button (click)="editItemVariant(element)">Bearbeiten</button>
+        <button mat-flat-button (click)="deleteItemVariant(element.id)">Löschen</button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
   <div fxLayout="row" fxLayoutGap="20px">
-    <button mat-flat-button color="accent">Neue Variante hinzufügen</button>
-    <button mat-flat-button>Speichern</button>
-    <button mat-flat-button>Artikel löschen</button>
+    <button mat-flat-button color="accent" (click)="newItemVariant()">Neue Variante hinzufügen</button>
+    <button mat-raised-button>Speichern</button>
+    <button mat-raised-button
+            *ngIf="routeId"
+            (click)="deleteItem(routeId)">Artikel löschen
+    </button>
   </div>
 </div>
