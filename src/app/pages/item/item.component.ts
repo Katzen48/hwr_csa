@@ -12,8 +12,8 @@ export class ItemComponent implements OnInit {
   constructor(public itemService: ItemService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    this.itemService.getItems();
+  async ngOnInit() {
+    await this.itemService.getItems();
   }
 
   public async onNewItem() {

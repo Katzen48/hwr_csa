@@ -1,43 +1,32 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Item } from '../models/item';
+import { ItemVariant } from '../models/itemVariant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
-  public items = [];
+  public items: Item[];
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
-  public getItems() {
-    this.items = [{id: 1, name: 'Jeans Gerda'}, {id: 2, name: 'T-Shirt Gerda'}];
+  public async getItems() {
+    this.items = await this.http.get<Item[]>(`${environment.backendUrl}/item`).toPromise();
   }
 
-  public getItemById(id: number) {
-    return {id: 3, name: 'Beispielartikel'};
+  public async getItemById(id: number) {
+    return await this.http.get<Item>(`${environment.backendUrl}/item/${id}`).toPromise();
   }
 
   public deleteItem(id) {
     console.log(`Item with id ${id} has been deleted`);
   }
 
-  public getItemVariantsById(id: number) {
-    return [
-      {
-        id: 1,
-        item_id: 4,
-        name: 'Jeans \'Gerda\' Blau Gestreift M',
-        price: 17.99,
-        size: 'M'
-      },
-      {
-        id: 2,
-        item_id: 4,
-        name: 'Jeans \'Gerda\' Rot Gestreift S',
-        price: 17.99,
-        size: 'S'
-      }
-    ];
+  public async getItemVariantsById(id: number) {
+    return await this.http.get<ItemVariant[]>(`${environment.backendUrl}/item/${id}/variant`).toPromise();
   }
 
   public deleteItemVariant(id) {

@@ -20,6 +20,7 @@ import { EmployeeComponent } from './pages/employee/employee.component';
 import { EmployeeDetailComponent } from './pages/employee/employee-detail/employee-detail.component';
 import { VendorComponent } from './pages/vendor/vendor.component';
 import { VendorEditComponent } from './pages/vendor/vendor-edit/vendor-edit.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { VendorEditComponent } from './pages/vendor/vendor-edit/vendor-edit.comp
     MatTableModule,
     MatDialogModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

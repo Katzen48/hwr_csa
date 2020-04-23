@@ -2,12 +2,13 @@
   <app-menu></app-menu>
 
   <button mat-flat-button
-          color="accent"
+          class="colored-btn"
           (click)="onNewEmployee()"
           style="width: fit-content">Neuer Verkäufer
   </button>
 
   <div *ngFor="let employee of employeeService.employees">
-    <button mat-flat-button (click)="onShowEmployee(employee.id)">{{ employee.givenName }} {{ employee.surname }} </button>
+    <button mat-flat-button
+            (click)="onShowEmployee(employee.id)">{{ employee.givenName }} {{ employee.surname }} </button>
   </div>
 </div>

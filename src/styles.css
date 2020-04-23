@@ -6,3 +6,9 @@ body { margin: 20px; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .long-form-field {
   width: 520px;
 }
+
+.colored-btn {
+  background-color: #4A148C;
+  color: white;
+}
+

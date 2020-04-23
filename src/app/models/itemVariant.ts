@@ -1,6 +1,8 @@
+import { Item } from './item';
+
 export class ItemVariant {
   id: number;
-  itemId: number;
+  item: Item;
   name: string;
   price: number;
   size: string;

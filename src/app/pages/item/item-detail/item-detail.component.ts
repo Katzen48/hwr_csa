@@ -24,11 +24,11 @@ export class ItemDetailComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.routeId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     if (this.routeId) {
-      this.item = this.itemService.getItemById(this.routeId);
-      this.variants = this.itemService.getItemVariantsById(this.routeId);
+      this.item = await this.itemService.getItemById(this.routeId);
+      this.variants = await this.itemService.getItemVariantsById(this.routeId);
       this.itemName.setValue(this.item.name);
       this.dataSource = this.variants;
     }

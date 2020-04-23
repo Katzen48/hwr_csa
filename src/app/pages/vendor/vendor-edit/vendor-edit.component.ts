@@ -34,4 +34,7 @@ export class VendorEditComponent implements OnInit {
     }
   }
 
+  public createNewVendor() {
+    console.log(this.vendorFormGroup.controls.name.value);
+  }
 }
