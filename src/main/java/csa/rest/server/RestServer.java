@@ -2,6 +2,9 @@ package csa.rest.server;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.hk2.api.ServiceLocator;
@@ -24,6 +27,13 @@ public class RestServer
 	{
 		try
 		{
+			Logger l = Logger.getLogger("org.glassfish.grizzly.http.server.HttpHandler");
+			l.setLevel(Level.FINE);
+			l.setUseParentHandlers(false);
+			ConsoleHandler ch = new ConsoleHandler();
+			ch.setLevel(Level.ALL);
+			l.addHandler(ch);
+			
 			httpServer.start();
 		}
 		catch (IOException e)
