@@ -4,14 +4,17 @@ import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(value={"id", "vendor"}, allowGetters=true)
 public class PurchaseHeader 
 {
 	private int id;
@@ -23,18 +26,12 @@ public class PurchaseHeader
 	@NonNull
 	private LocalDate deliveryDate;
 	
+	@JsonCreator(mode=Mode.DISABLED)
 	@ConstructorProperties({"id", "vendor_id", "posting_date", "delivery_date"})
 	public PurchaseHeader(int id, @NonNull Vendor vendor, @NonNull LocalDate postingDate, @NonNull LocalDate deliveryDate)
 	{
 		this.id = id;
 		this.vendor = vendor;
-		this.postingDate = postingDate;
-		this.deliveryDate = deliveryDate;
-	}
-	
-	@JsonCreator
-	public PurchaseHeader(LocalDate postingDate, LocalDate deliveryDate)
-	{
 		this.postingDate = postingDate;
 		this.deliveryDate = deliveryDate;
 	}

@@ -3,14 +3,16 @@ package csa.model;
 import java.beans.ConstructorProperties;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@JsonIgnoreProperties(value={"id", "purchase_header", "item_variant", "line_amount"}, allowGetters=true)
 public class PurchaseLine 
 {
 	private int id;
@@ -33,6 +35,16 @@ public class PurchaseLine
 	@NonNull
 	private boolean delivered;
 	
+	@JsonCreator
+	public PurchaseLine(@JsonProperty("price") float price, @JsonProperty("quantity") int quantity, @JsonProperty("delivered") boolean delivered) 
+	{
+		this.price = price;
+		this.quantity = quantity;
+		this.delivered = delivered;
+		this.lineAmount = price * quantity;
+	}
+	
+	@JsonCreator(mode=Mode.DISABLED)
 	@ConstructorProperties({"id", "purchase_header_id", "item_variant_id", "price", "quantity", "line_amount", "delivered"})
 	public PurchaseLine(int id, @NonNull PurchaseHeader purchaseHeader, @NonNull ItemVariant itemVariant, float price, int quantity, float lineAmount, boolean delivered)
 	{
@@ -43,15 +55,6 @@ public class PurchaseLine
 		this.quantity = quantity;
 		this.lineAmount = lineAmount;
 		this.delivered = delivered;
-	}
-	
-	@JsonCreator
-	public PurchaseLine(float price, int quantity, boolean delivered)
-	{
-		this.price = price;
-		this.quantity = quantity;
-		this.delivered = delivered;
-		this.lineAmount = price * quantity;
 	}
 	
 	@JsonIgnore

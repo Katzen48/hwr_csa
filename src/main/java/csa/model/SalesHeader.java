@@ -3,15 +3,16 @@ package csa.model;
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(value={"id", "employee"}, allowGetters=true)
 public class SalesHeader {
 
 	private int id;
@@ -25,12 +26,6 @@ public class SalesHeader {
 	{
 		this.id = id;
 		this.employee = employee;
-		this.postingDate = postingDate;
-	}
-	
-	@JsonCreator
-	public SalesHeader(LocalDate postingDate)
-	{
 		this.postingDate = postingDate;
 	}
 	

@@ -2,17 +2,27 @@ package csa.model;
 
 import java.beans.ConstructorProperties;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
-@AllArgsConstructor(onConstructor_={@ConstructorProperties({"id", "name"})})
+@NoArgsConstructor
+@JsonIgnoreProperties(value={"id"}, allowGetters=true)
 public class Item
 {
 	private int id;
 	@NonNull
 	private String name;
+	
+	@JsonCreator(mode=Mode.DISABLED)
+	@ConstructorProperties({"id", "name"})
+	public Item(int id, String name)
+	{
+		
+	}
 }

@@ -3,15 +3,17 @@ package csa.model;
 import java.beans.ConstructorProperties;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Setter;
 
 @Data
+@NoArgsConstructor
+@JsonIgnoreProperties(value={"id", "item"}, allowGetters=true)
 public class ItemVariant 
 {
 	private int id;
@@ -24,20 +26,13 @@ public class ItemVariant
 	private float price;
 	@NonNull
 	private String size;
-
+	
+	@JsonCreator(mode=Mode.DISABLED)
 	@ConstructorProperties({"id", "item_id", "name", "price", "size"})
 	public ItemVariant(int id, @NonNull Item item, @NonNull String name, float price, @NonNull String size)
 	{
 		this.id = id;
 		this.item = item;
-		this.name = name;
-		this.price = price;
-		this.size = size;
-	}
-	
-	@JsonCreator
-	public ItemVariant(@JsonProperty("name") String name, @JsonProperty("price") float price, @JsonProperty("size") String size, @JsonProperty("id") int id, @JsonProperty("item_id") int itemId)
-	{
 		this.name = name;
 		this.price = price;
 		this.size = size;
