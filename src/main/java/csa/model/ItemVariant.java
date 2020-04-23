@@ -8,14 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
 public class ItemVariant {
 	
 	private int id;
-	@NonNull
+	
 	private Item item;
 	@NonNull
 	private String name;
