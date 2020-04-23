@@ -4,6 +4,7 @@ import java.beans.ConstructorProperties;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 import lombok.NonNull;
@@ -34,7 +35,7 @@ public class ItemVariant {
 	}
 	
 	@JsonCreator
-	public ItemVariant(String name, float price, String size)
+	public ItemVariant(@JsonProperty("name") String name, @JsonProperty("price") float price, @JsonProperty("size") String size)
 	{
 		this.name = name;
 		this.price = price;
