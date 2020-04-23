@@ -47,9 +47,6 @@ public class ItemVariantResource
 		
 		List<ItemVariant> variants = itemVariantService.listByItem(item);
 		
-		if(variants.isEmpty())
-			return Response.status(Status.NOT_FOUND).build();
-		
 		return Response.ok(variants, MediaType.APPLICATION_JSON).build();
 	}
 	

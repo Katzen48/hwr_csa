@@ -47,9 +47,6 @@ public class PurchaseLineResource
 		
 		List<PurchaseLine> lines = purchaseLineService.listByPurchaseHeader(header);
 		
-		if(lines.isEmpty())
-			return Response.status(Status.NOT_FOUND).build();
-		
 		return Response.ok(lines, MediaType.APPLICATION_JSON).build();
 	}
 	
