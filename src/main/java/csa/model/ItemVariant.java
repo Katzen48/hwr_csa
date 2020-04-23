@@ -6,14 +6,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.Setter;
 
 @Data
-public class ItemVariant {
-	
+public class ItemVariant 
+{
 	private int id;
 	
+	@NonNull
 	private Item item;
 	@NonNull
 	private String name;
@@ -33,7 +36,7 @@ public class ItemVariant {
 	}
 	
 	@JsonCreator
-	public ItemVariant(@JsonProperty("name") String name, @JsonProperty("price") float price, @JsonProperty("size") String size)
+	public ItemVariant(@JsonProperty("name") String name, @JsonProperty("price") float price, @JsonProperty("size") String size, @JsonProperty("id") int id, @JsonProperty("item_id") int itemId)
 	{
 		this.name = name;
 		this.price = price;
