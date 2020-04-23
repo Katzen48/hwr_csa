@@ -12,5 +12,6 @@ public class ServerConfig extends ResourceConfig
 		
 		register(new ApplicationBinder());
 		register(new JacksonJaxbJsonProvider(new ObjectMapperFactory().buildObjectMapper(), JacksonJaxbJsonProvider.DEFAULT_ANNOTATIONS));
+		register(new CORSFilter());
 	}
 }
