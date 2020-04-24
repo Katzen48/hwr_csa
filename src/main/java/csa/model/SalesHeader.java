@@ -3,6 +3,8 @@ package csa.model;
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,6 +23,7 @@ public class SalesHeader {
 	@NonNull
 	private LocalDate postingDate;
 	
+	@JsonCreator(mode=Mode.DISABLED)
 	@ConstructorProperties({"id", "employee_id", "posting_date"})
 	public SalesHeader(int id, @NonNull Employee employee, @NonNull LocalDate postingDate)
 	{
