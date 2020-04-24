@@ -21,6 +21,7 @@ public class SalesHeader {
 	@NonNull
 	private Employee employee;
 	@NonNull
+	@JsonProperty("posting_date")
 	private LocalDate postingDate;
 	
 	@JsonCreator(mode=Mode.DISABLED)
