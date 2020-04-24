@@ -38,7 +38,8 @@
 
   <div fxLayout="row" fxLayoutGap="20px">
     <button mat-flat-button class="colored-btn" (click)="newItemVariant()">Neue Variante hinzufügen</button>
-    <button mat-raised-button>Speichern</button>
+    <button mat-raised-button *ngIf="!routeId" (click)="postNewItem()">Speichern</button>
+    <button mat-raised-button *ngIf="routeId" (click)="updateItem()">Speichern</button>
     <button mat-raised-button
             *ngIf="routeId"
             (click)="deleteItem(routeId)">Artikel löschen

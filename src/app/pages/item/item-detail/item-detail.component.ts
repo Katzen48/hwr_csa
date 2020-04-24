@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemVariantEditComponent } from '../item-variant-edit/item-variant-edit.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ItemService } from '../../../services/item.service';
 
@@ -20,7 +20,8 @@ export class ItemDetailComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               private route: ActivatedRoute,
-              public itemService: ItemService
+              public itemService: ItemService,
+              private router: Router
   ) {
   }
 
@@ -34,19 +35,47 @@ export class ItemDetailComponent implements OnInit {
     }
   }
 
-  public newItemVariant() {
-    const dialogRef = this.dialog.open(ItemVariantEditComponent);
+  public async postNewItem() {
+    const item = {name: this.itemName.value};
+    await this.itemService.postNewItem(item);
+    await this.router.navigate(['items']);
   }
 
-  public editItemVariant(itemVariant) {
-    const dialogRef = this.dialog.open(ItemVariantEditComponent, {data: itemVariant});
+  public async updateItem() {
+    const item = {id: this.routeId, name: this.itemName.value};
+    await this.itemService.updateItem(item);
+    await this.router.navigate(['items']);
+  }
+
+  public async deleteItem(id) {
+    await this.itemService.deleteItem(id);
+    await this.router.navigate(['items']);
+  }
+
+  public async newItemVariant() {
+    const dialogRef = this.dialog.open(ItemVariantEditComponent, {
+      data: {id: this.routeId}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        window.location.reload();
+      }
+    });
+  }
+
+  public async editItemVariant(itemVariant) {
+    const dialogRef = this.dialog.open(ItemVariantEditComponent, {
+      data: {id: this.routeId, content: itemVariant}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        window.location.reload();
+      }
+    });
   }
 
   public deleteItemVariant(id) {
     this.itemService.deleteItemVariant(id);
   }
 
-  public deleteItem(id) {
-    this.itemService.deleteItem(id);
-  }
 }

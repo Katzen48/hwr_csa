@@ -21,12 +21,24 @@ export class ItemService {
     return await this.http.get<Item>(`${environment.backendUrl}/item/${id}`).toPromise();
   }
 
-  public deleteItem(id) {
-    console.log(`Item with id ${id} has been deleted`);
+  public async postNewItem(item) {
+    await this.http.post(`${environment.backendUrl}/item`, item).toPromise();
+  }
+
+  public async updateItem(item) {
+    await this.http.put(`${environment.backendUrl}/item`, item).toPromise();
+  }
+
+  public async deleteItem(id) {
+    await this.http.delete(`${environment.backendUrl}/item/${id}`).toPromise();
   }
 
   public async getItemVariantsById(id: number) {
     return await this.http.get<ItemVariant[]>(`${environment.backendUrl}/item/${id}/variant`).toPromise();
+  }
+
+  public async postNewItemVariant(id, itemVariant) {
+    await this.http.post(`${environment.backendUrl}/item/${id}/variant`, itemVariant).toPromise();
   }
 
   public deleteItemVariant(id) {

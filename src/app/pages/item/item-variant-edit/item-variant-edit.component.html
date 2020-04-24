@@ -4,22 +4,22 @@
 <div mat-dialog-content fxLayout="column" fxLayoutGap="16px">
   <mat-form-field appearance="fill" class="long-form-field">
     <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.name">
+    <input matInput [(ngModel)]="data.content.name">
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="long-form-field">
     <mat-label>Preis in €</mat-label>
-    <input matInput [(ngModel)]="data.price">
+    <input matInput [(ngModel)]="data.content.price">
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="long-form-field">
     <mat-label>Größe</mat-label>
-    <input matInput [(ngModel)]="data.size">
+    <input matInput [(ngModel)]="data.content.size">
   </mat-form-field>
 </div>
 
 <div mat-dialog-actions fxLayout="row" fxLayoutGap="20px">
-  <button mat-flat-button class="colored-btn">Speichern</button>
-  <button mat-raised-button (click)="onCancelClick()">Abbrechen</button>
+  <button mat-flat-button class="colored-btn" (click)="postNewItemVariant()">Speichern</button>
+  <button mat-raised-button [mat-dialog-close]="'cancel'">Abbrechen</button>
 </div>
 
