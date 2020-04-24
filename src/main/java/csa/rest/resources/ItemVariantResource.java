@@ -38,7 +38,7 @@ public class ItemVariantResource
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getItemVariantss(@PathParam("item") int itemId)
+	public Response getItemVariants(@PathParam("item") int itemId)
 	{
 		Item item = itemService.getItem(itemId);
 		
