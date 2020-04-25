@@ -3,6 +3,7 @@ package csa.model;
 import java.beans.ConstructorProperties;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class Employee
 	@Setter(value=AccessLevel.NONE)
 	private int id;
 	@NonNull
+	@JsonProperty("given_name")
 	private String givenName;
 	@NonNull
 	private String surname;

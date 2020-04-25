@@ -20,8 +20,10 @@ import javax.ws.rs.core.Response.Status;
 import org.glassfish.jersey.spi.Contract;
 
 import csa.model.PurchaseHeader;
+import csa.model.Vendor;
 import csa.rest.server.RestServer;
 import csa.service.contract.IPurchaseHeaderService;
+import csa.service.contract.IVendorService;
 
 @Path(PurchaseHeaderResource.PATH)
 @Singleton
@@ -32,6 +34,9 @@ public class PurchaseHeaderResource
 	
 	@Inject
 	private IPurchaseHeaderService purchaseHeaderService;
+	
+	@Inject
+	private IVendorService vendorService;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -54,6 +59,13 @@ public class PurchaseHeaderResource
 	{
 		try
 		{
+			Vendor vendor = vendorService.getVendor(purchaseHeader.getVendor_id());
+			
+			if(vendor == null)
+				return Response.status(Status.BAD_REQUEST).build();
+			
+			purchaseHeader.setVendor(vendor);
+			
 			PurchaseHeader result = purchaseHeaderService.createPurchaseHeader(purchaseHeader);
 			
 			if(result != null)
@@ -73,6 +85,13 @@ public class PurchaseHeaderResource
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updatePurchaseHeader(PurchaseHeader purchaseHeader)
 	{
+		Vendor vendor = vendorService.getVendor(purchaseHeader.getVendor_id());
+		
+		if(vendor == null)
+			return Response.status(Status.BAD_REQUEST).build();
+		
+		purchaseHeader.setVendor(vendor);
+		
 		if(purchaseHeaderService.updatePurchaseHeader(purchaseHeader))
 			return Response.noContent().build();
 		

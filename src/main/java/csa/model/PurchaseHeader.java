@@ -29,6 +29,10 @@ public class PurchaseHeader
 	@JsonProperty("delivery_date")
 	private LocalDate deliveryDate;
 	
+	// Only for JSON deserialization
+	@JsonIgnoreProperties(allowSetters=true)
+	private int vendor_id;
+	
 	@JsonCreator(mode=Mode.DISABLED)
 	@ConstructorProperties({"id", "vendor_id", "posting_date", "delivery_date"})
 	public PurchaseHeader(int id, @NonNull Vendor vendor, @NonNull LocalDate postingDate, @NonNull LocalDate deliveryDate)

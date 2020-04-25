@@ -19,8 +19,10 @@ import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.spi.Contract;
 
+import csa.model.Employee;
 import csa.model.SalesHeader;
 import csa.rest.server.RestServer;
+import csa.service.contract.IEmployeeService;
 import csa.service.contract.ISalesHeaderService;
 
 @Path(SalesHeaderResource.PATH)
@@ -32,6 +34,9 @@ public class SalesHeaderResource
 	
 	@Inject
 	private ISalesHeaderService salesHeaderService;
+	
+	@Inject
+	private IEmployeeService employeeService;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -54,6 +59,13 @@ public class SalesHeaderResource
 	{
 		try
 		{
+			Employee employee = employeeService.getEmployee(salesHeader.getEmployee_id());
+			
+			if(employee == null)
+				return Response.status(Status.BAD_REQUEST).build();
+			
+			salesHeader.setEmployee(employee);
+			
 			SalesHeader result = salesHeaderService.createSalesHeader(salesHeader);
 			
 			if(result != null)
@@ -73,6 +85,13 @@ public class SalesHeaderResource
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateSalesHeader(SalesHeader salesHeader)
 	{
+		Employee employee = employeeService.getEmployee(salesHeader.getEmployee_id());
+		
+		if(employee == null)
+			return Response.status(Status.BAD_REQUEST).build();
+		
+		salesHeader.setEmployee(employee);
+		
 		if(salesHeaderService.updateSalesHeader(salesHeader))
 			return Response.noContent().build();
 		

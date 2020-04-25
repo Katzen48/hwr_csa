@@ -13,7 +13,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
 public class RestServer
 {
-	public static final String BASE_URI = "http://0.0.0.0:8080/";
+	public static final String BASE_URI = "http://0.0.0.0:8090/";
 	private final ServiceLocator serviceLocator;
 	private final HttpServer httpServer;
 	
