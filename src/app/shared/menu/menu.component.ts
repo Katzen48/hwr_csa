@@ -35,7 +35,7 @@ export class MenuComponent implements OnInit {
   }
 
   public async onSale() {
-    // await this.router.navigate(['items']);
+    await this.router.navigate(['sales']);
   }
 
   public async onOrder() {

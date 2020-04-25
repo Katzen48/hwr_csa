@@ -12,8 +12,8 @@ export class EmployeeComponent implements OnInit {
   constructor(public employeeService: EmployeeService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    this.employeeService.getEmployees();
+  async ngOnInit() {
+    await this.employeeService.getEmployees();
   }
 
   public async onNewEmployee() {

@@ -1,0 +1,26 @@
+
+<div mat-dialog-title *ngIf="data">Buchungszeile bearbeiten</div>
+<div mat-dialog-title *ngIf="!data">Neue Buchungszeile</div>
+
+<div mat-dialog-content fxLayout="column" fxLayoutGap="16px">
+  <mat-form-field appearance="fill" class="long-form-field">
+    <mat-label>Artikelvariante</mat-label>
+    <input matInput [(ngModel)]="data.content.item_variant">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="long-form-field">
+    <mat-label>Preis in €</mat-label>
+    <input matInput [(ngModel)]="data.content.price">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="long-form-field">
+    <mat-label>Menge</mat-label>
+    <input matInput type="number" [(ngModel)]="data.content.quantity">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutGap="20px">
+  <button mat-flat-button class="colored-btn">Speichern</button>
+  <button mat-raised-button [mat-dialog-close]="'cancel'">Abbrechen</button>
+</div>
+

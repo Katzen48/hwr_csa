@@ -22,7 +22,7 @@ export class ItemService {
   }
 
   public async postNewItem(item) {
-    await this.http.post(`${environment.backendUrl}/item`, item).toPromise();
+    await this.http.post(`${environment.backendUrl}/item`, item, {observe: 'response'}).toPromise();
   }
 
   public async updateItem(item) {

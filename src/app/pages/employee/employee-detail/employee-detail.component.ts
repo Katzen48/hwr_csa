@@ -13,18 +13,18 @@ export class EmployeeDetailComponent implements OnInit {
   public employee;
 
   public employeeFormGroup: FormGroup = new FormGroup({
-    givenName: new FormControl(),
+    given_name: new FormControl(),
     surname: new FormControl()
   });
 
   constructor(private route: ActivatedRoute, public employeeService: EmployeeService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.routeId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     if (this.routeId) {
-      this.employee = this.employeeService.getEmployeeById(this.routeId);
-      this.employeeFormGroup.controls.givenName.setValue(this.employee.givenName);
+      this.employee = await this.employeeService.getEmployeeById(this.routeId);
+      this.employeeFormGroup.controls.given_name.setValue(this.employee.given_name);
       this.employeeFormGroup.controls.surname.setValue(this.employee.surname);
     }
   }

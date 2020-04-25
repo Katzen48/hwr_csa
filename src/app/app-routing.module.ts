@@ -7,6 +7,8 @@ import { EmployeeComponent } from './pages/employee/employee.component';
 import { EmployeeDetailComponent } from './pages/employee/employee-detail/employee-detail.component';
 import { VendorComponent } from './pages/vendor/vendor.component';
 import { VendorEditComponent } from './pages/vendor/vendor-edit/vendor-edit.component';
+import { SaleComponent } from './pages/sale/sale.component';
+import { SaleLineComponent } from './pages/sale/sale-line/sale-line.component';
 
 
 const routes: Routes = [
@@ -49,6 +51,18 @@ const routes: Routes = [
   {
     path: 'vendors/vendor-edit/:id',
     component: VendorEditComponent,
+  },
+  {
+    path: 'sales',
+    component: SaleComponent,
+  },
+  {
+    path: 'sales/:id',
+    component: SaleComponent,
+  },
+  {
+    path: 'sales/:id/lines',
+    component: SaleLineComponent,
   },
   {path: '**', redirectTo: 'dashboard'}
 ];

@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Employee } from '../models/employee';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  public employees;
+  public employees: Employee[];
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
-  public getEmployees() {
-    this.employees = [{id: 1, givenName: 'Sandra', surname: 'Richard'}];
+  public async getEmployees() {
+    this.employees = await this.http.get<Employee[]>(`${environment.backendUrl}/employee`).toPromise();
   }
 
-  public getEmployeeById(id) {
-    return {id: 1, givenName: 'Sandra', surname: 'Richard'};
+  public async getEmployeeById(id) {
+    return await this.http.get<Employee>(`${environment.backendUrl}/employee/${id}`).toPromise();
   }
 }

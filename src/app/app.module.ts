@@ -21,6 +21,12 @@ import { EmployeeDetailComponent } from './pages/employee/employee-detail/employ
 import { VendorComponent } from './pages/vendor/vendor.component';
 import { VendorEditComponent } from './pages/vendor/vendor-edit/vendor-edit.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SaleComponent } from './pages/sale/sale.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SaleLineComponent } from './pages/sale/sale-line/sale-line.component';
+import { SaleLineEditComponent } from './pages/sale/sale-line-edit/sale-line-edit.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +39,10 @@ import { HttpClientModule } from '@angular/common/http';
     EmployeeComponent,
     EmployeeDetailComponent,
     VendorComponent,
-    VendorEditComponent
+    VendorEditComponent,
+    SaleComponent,
+    SaleLineComponent,
+    SaleLineEditComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +56,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {
