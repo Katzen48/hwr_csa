@@ -448,7 +448,7 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public boolean updateSalesHeader(SalesHeader salesHeader)
 	{
-		return handle.createUpdate("UPDATE sales_header SET `employee_id` = :getEmployeeId, `posting_date` = :getPostingDate")
+		return handle.createUpdate("UPDATE sales_header SET `employee_id` = :getEmployeeId, `posting_date` = :getPostingDate WHERE `id` = :getId")
 				.bindMethods(salesHeader)
 				.execute() == 1;
 	}
