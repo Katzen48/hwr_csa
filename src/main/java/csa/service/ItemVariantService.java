@@ -52,4 +52,10 @@ public class ItemVariantService implements IItemVariantService
 	{
 		return dbAdapter.deleteItemVariant(itemVariant);
 	}
+
+	@Override
+	public List<ItemVariant> searchByName(String query)
+	{
+		return dbAdapter.searchItemVariantByName(query);
+	}
 }

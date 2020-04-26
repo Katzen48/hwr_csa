@@ -16,4 +16,5 @@ public interface IItemVariantService
 	ItemVariant createItemVariant(ItemVariant itemVariant);
 	boolean updateItemVariant(ItemVariant itemVariant);
 	boolean deleteItemVariant(ItemVariant itemVariant);
+	List<ItemVariant> searchByName(String query);
 }

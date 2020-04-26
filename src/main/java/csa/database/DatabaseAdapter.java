@@ -49,6 +49,7 @@ public interface DatabaseAdapter extends Closeable
 	ItemVariant createItemVariant(ItemVariant itemVariant);
 	boolean updateItemVariant(ItemVariant itemVariant);
 	boolean deleteItemVariant(ItemVariant itemVariant);
+	List<ItemVariant> searchItemVariantByName(String query);
 	
 	// Purchase Header
 	List<PurchaseHeader> listPurchaseHeaders();

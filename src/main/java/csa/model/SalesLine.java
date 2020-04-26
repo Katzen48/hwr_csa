@@ -32,6 +32,10 @@ public class SalesLine
 	@NonNull
 	private float lineAmount;
 	
+	// Only for JSON deserialization
+	@JsonIgnoreProperties(allowSetters=true)
+	private int item_variant_id;
+	
 	@JsonCreator(mode=Mode.DISABLED)
 	@ConstructorProperties({"id", "sales_header_id", "item_variant_id", "item_price", "quantity", "line_amount"})
 	public SalesLine(int id, @NonNull SalesHeader salesHeader, @NonNull ItemVariant itemVariant, float itemPrice, int quantity, float lineAmount)

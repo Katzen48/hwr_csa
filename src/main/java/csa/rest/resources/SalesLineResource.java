@@ -19,9 +19,11 @@ import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.spi.Contract;
 
+import csa.model.ItemVariant;
 import csa.model.SalesHeader;
 import csa.model.SalesLine;
 import csa.rest.server.RestServer;
+import csa.service.contract.IItemVariantService;
 import csa.service.contract.ISalesHeaderService;
 import csa.service.contract.ISalesLineService;
 
@@ -35,6 +37,9 @@ public class SalesLineResource
 	
 	@Inject
 	private ISalesLineService salesLineService;
+	
+	@Inject
+	private IItemVariantService itemVariantService;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -78,6 +83,14 @@ public class SalesLineResource
 			
 			if(salesHeader == null)
 				return Response.status(Status.NOT_FOUND).build();
+			
+			ItemVariant variant = itemVariantService.getItemVariant(salesLine.getItem_variant_id());
+			
+			if(variant == null)
+				return Response.status(Status.BAD_REQUEST).build();
+			
+			salesLine.setSalesHeader(salesHeader);
+			salesLine.setItemVariant(variant);
 			
 			SalesLine result = salesLineService.createSalesLine(salesLine);
 			

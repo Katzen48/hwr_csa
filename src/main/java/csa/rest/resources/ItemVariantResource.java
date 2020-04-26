@@ -22,6 +22,7 @@ import org.glassfish.jersey.spi.Contract;
 import csa.model.Item;
 import csa.model.ItemVariant;
 import csa.rest.server.RestServer;
+import csa.rest.util.Query;
 import csa.service.contract.IItemService;
 import csa.service.contract.IItemVariantService;
 
@@ -129,5 +130,14 @@ public class ItemVariantResource
 			return Response.notModified().build();
 		
 		return Response.noContent().build();
+	}
+	
+	
+	@POST
+	@Path("search")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<ItemVariant> searchItemVariants(Query query)
+	{
+		return itemVariantService.searchByName(query.getQuery());
 	}
 }

@@ -305,6 +305,15 @@ public class MySQLAdapter implements DatabaseAdapter
 				.bindMethods(itemVariant)
 				.execute() == 1;
 	}
+	
+	@Override
+	public List<ItemVariant> searchItemVariantByName(String query)
+	{
+		return handle.createQuery("SELECT * FROM item_variant WHERE LOWER(`name`) LIKE LOWER('*:query*')")
+				.bind("query", query)
+				.mapTo(ItemVariant.class)
+				.list();
+	}
 
 	@Override
 	public List<PurchaseHeader> listPurchaseHeaders()
