@@ -18,7 +18,6 @@ import lombok.Setter;
 @JsonIgnoreProperties(value={"id"}, allowGetters=true)
 public class Employee
 {
-	@Setter(value=AccessLevel.NONE)
 	private int id;
 	@NonNull
 	@JsonProperty("given_name")

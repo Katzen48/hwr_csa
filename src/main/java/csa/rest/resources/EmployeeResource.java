@@ -70,9 +70,12 @@ public class EmployeeResource
 	}
 	
 	@PUT
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateEmployee(Employee employee)
+	public Response updateEmployee(@PathParam("id") int id, Employee employee)
 	{
+		employee.setId(id);
+		
 		if(employeeService.updateEmployee(employee))
 			return Response.noContent().build();
 		
