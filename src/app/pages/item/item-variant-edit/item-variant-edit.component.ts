@@ -31,4 +31,14 @@ export class ItemVariantEditComponent implements OnInit {
     await this.itemService.postNewItemVariant(this.data.id, itemVariant);
     this.dialogRef.close();
   }
+
+  public async updateItemVariant() {
+    const itemVariant = {
+      name: this.data.content.name,
+      price: this.data.content.price,
+      size: this.data.content.size
+    };
+    await this.itemService.updateItemVariant(this.data.id, this.data.content.id, itemVariant);
+    this.dialogRef.close();
+  }
 }

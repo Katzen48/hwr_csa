@@ -25,8 +25,8 @@ export class ItemService {
     await this.http.post(`${environment.backendUrl}/item`, item, {observe: 'response'}).toPromise();
   }
 
-  public async updateItem(item) {
-    await this.http.put(`${environment.backendUrl}/item`, item).toPromise();
+  public async updateItem(id, item) {
+    await this.http.put(`${environment.backendUrl}/item/${id}`, item).toPromise();
   }
 
   public async deleteItem(id) {
@@ -41,7 +41,11 @@ export class ItemService {
     await this.http.post(`${environment.backendUrl}/item/${id}/variant`, itemVariant).toPromise();
   }
 
-  public deleteItemVariant(id) {
-    console.log(`ItemVariant with id ${id} has been deleted`);
+  public async deleteItemVariant(itemId, variantId) {
+    await this.http.delete(`${environment.backendUrl}/item/${itemId}/variant/${variantId}`).toPromise();
+  }
+
+  public async updateItemVariant(itemId, variantId, itemVariant) {
+    await this.http.put(`${environment.backendUrl}/item/${itemId}/variant/${variantId}`, itemVariant).toPromise();
   }
 }

@@ -19,7 +19,16 @@
 </div>
 
 <div mat-dialog-actions fxLayout="row" fxLayoutGap="20px">
-  <button mat-flat-button class="colored-btn" (click)="postNewItemVariant()">Speichern</button>
+  <button mat-flat-button
+          class="colored-btn"
+          *ngIf="!data.content.id"
+          (click)="postNewItemVariant()">Speichern
+  </button>
+  <button mat-flat-button
+          class="colored-btn"
+          *ngIf="data.content.id"
+          (click)="updateItemVariant()">Speichern
+  </button>
   <button mat-raised-button [mat-dialog-close]="'cancel'">Abbrechen</button>
 </div>
 

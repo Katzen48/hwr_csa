@@ -42,8 +42,8 @@ export class ItemDetailComponent implements OnInit {
   }
 
   public async updateItem() {
-    const item = {id: this.routeId, name: this.itemName.value};
-    await this.itemService.updateItem(item);
+    const item = {name: this.itemName.value};
+    await this.itemService.updateItem(this.routeId, item);
     await this.router.navigate(['items']);
   }
 
@@ -58,7 +58,7 @@ export class ItemDetailComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {
-        window.location.reload();
+        location.reload();
       }
     });
   }
@@ -69,13 +69,14 @@ export class ItemDetailComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {
-        window.location.reload();
+        location.reload();
       }
     });
   }
 
-  public deleteItemVariant(id) {
-    this.itemService.deleteItemVariant(id);
+  public async deleteItemVariant(variantId) {
+    await this.itemService.deleteItemVariant(this.routeId, variantId);
+    location.reload();
   }
 
 }
