@@ -107,6 +107,7 @@ public class ItemVariantResource
 			return Response.status(Status.NOT_FOUND).build();
 		
 		itemVariant.setId(id);
+		itemVariant.setItem(item);
 		
 		if(itemVariantService.updateItemVariant(itemVariant))
 			return Response.noContent().build();
