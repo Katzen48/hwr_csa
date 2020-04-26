@@ -82,8 +82,9 @@ public class SalesHeaderResource
 	}
 	
 	@PUT
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateSalesHeader(SalesHeader salesHeader)
+	public Response updateSalesHeader(@PathParam int id, SalesHeader salesHeader)
 	{
 		Employee employee = employeeService.getEmployee(salesHeader.getEmployee_id());
 		
@@ -91,6 +92,7 @@ public class SalesHeaderResource
 			return Response.status(Status.BAD_REQUEST).build();
 		
 		salesHeader.setEmployee(employee);
+		salesHeader.setId(id);
 		
 		if(salesHeaderService.updateSalesHeader(salesHeader))
 			return Response.noContent().build();
@@ -106,6 +108,8 @@ public class SalesHeaderResource
 		
 		if(salesHeader == null)
 			return Response.status(Status.NOT_FOUND).build();
+		
+		salesHeader.setId(id);
 		
 		if(!salesHeaderService.deleteSalesHeader(salesHeader))
 			return Response.notModified().build();
