@@ -98,13 +98,16 @@ public class ItemVariantResource
 	}
 	
 	@PUT
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateItemVariant(@PathParam("item") int itemId, ItemVariant itemVariant)
+	public Response updateItemVariant(@PathParam("item") int itemId, @PathParam("id") int id, ItemVariant itemVariant)
 	{
 		Item item = itemService.getItem(itemId);
 		
 		if(item == null)
 			return Response.status(Status.NOT_FOUND).build();
+		
+		itemVariant.setId(id);
 		
 		if(itemVariantService.updateItemVariant(itemVariant))
 			return Response.noContent().build();
