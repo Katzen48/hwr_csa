@@ -309,8 +309,7 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public List<ItemVariant> searchItemVariantByName(String query)
 	{
-		return handle.createQuery("SELECT * FROM item_variant WHERE LOWER(`name`) LIKE LOWER('%:query%')")
-				.bind("query", query)
+		return handle.createQuery(String.format("SELECT * FROM item_variant WHERE LOWER(`name`) LIKE LOWER('%%%s%%')", query))
 				.mapTo(ItemVariant.class)
 				.list();
 	}
