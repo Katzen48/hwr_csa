@@ -19,4 +19,16 @@ export class EmployeeService {
   public async getEmployeeById(id) {
     return await this.http.get<Employee>(`${environment.backendUrl}/employee/${id}`).toPromise();
   }
+
+  public async postNewEmployee(employee) {
+    await this.http.post(`${environment.backendUrl}/employee`, employee).toPromise();
+  }
+
+  public async updateEmployee(id, employee) {
+    await this.http.put(`${environment.backendUrl}/employee/${id}`, employee).toPromise();
+  }
+
+  public async deleteEmployee(id) {
+    await this.http.delete(`${environment.backendUrl}/employee/${id}`).toPromise();
+  }
 }

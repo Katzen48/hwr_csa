@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { EmployeeService } from '../../../services/employee.service';
 
@@ -17,7 +17,10 @@ export class EmployeeDetailComponent implements OnInit {
     surname: new FormControl()
   });
 
-  constructor(private route: ActivatedRoute, public employeeService: EmployeeService) {
+  constructor(private route: ActivatedRoute,
+              public employeeService: EmployeeService,
+              private router: Router
+  ) {
   }
 
   async ngOnInit() {
@@ -29,4 +32,32 @@ export class EmployeeDetailComponent implements OnInit {
     }
   }
 
+  public async postNewEmployee() {
+    const employee = {
+      given_name: this.employeeFormGroup.controls.given_name.value,
+      surname: this.employeeFormGroup.controls.surname.value
+    };
+
+    await this.employeeService.postNewEmployee(employee);
+    await this.router.navigate([`employees`]);
+  }
+
+  public async updateNewEmployee() {
+    const employee = {
+      given_name: this.employeeFormGroup.controls.given_name.value,
+      surname: this.employeeFormGroup.controls.surname.value
+    };
+
+    await this.employeeService.updateEmployee(this.routeId, employee);
+    await this.router.navigate([`employees`]);
+  }
+
+  public async onBack() {
+    await this.router.navigate([`employees`]);
+  }
+
+  public async deleteEmployee() {
+    await this.employeeService.deleteEmployee(this.routeId);
+    await this.router.navigate([`employees`]);
+  }
 }
