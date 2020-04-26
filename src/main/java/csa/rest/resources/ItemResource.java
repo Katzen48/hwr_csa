@@ -72,7 +72,7 @@ public class ItemResource
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateItem(@Path("id") int id, Item item)
+	public Response updateItem(@PathParam("id") int id, Item item)
 	{
 		item.setId(id);
 		
