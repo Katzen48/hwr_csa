@@ -84,7 +84,7 @@ public class SalesHeaderResource
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateSalesHeader(@PathParam int id, SalesHeader salesHeader)
+	public Response updateSalesHeader(@PathParam("id") int id, SalesHeader salesHeader)
 	{
 		Employee employee = employeeService.getEmployee(salesHeader.getEmployee_id());
 		
