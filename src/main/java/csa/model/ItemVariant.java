@@ -13,7 +13,7 @@ import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(value={"id", "item"}, allowGetters=true)
+@JsonIgnoreProperties(value={"id", "item", "itemId"}, allowGetters=true)
 public class ItemVariant 
 {
 	private int id;

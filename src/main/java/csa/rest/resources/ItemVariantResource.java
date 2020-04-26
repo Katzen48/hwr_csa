@@ -22,7 +22,6 @@ import org.glassfish.jersey.spi.Contract;
 import csa.model.Item;
 import csa.model.ItemVariant;
 import csa.rest.server.RestServer;
-import csa.rest.util.Query;
 import csa.service.contract.IItemService;
 import csa.service.contract.IItemVariantService;
 
