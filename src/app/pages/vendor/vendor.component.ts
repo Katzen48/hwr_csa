@@ -14,8 +14,8 @@ export class VendorComponent implements OnInit {
   constructor(public vendorService: VendorService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    this.vendorService.getVendors();
+  async ngOnInit() {
+    await this.vendorService.getVendors();
     this.dataSource = this.vendorService.vendors;
   }
 
@@ -27,7 +27,8 @@ export class VendorComponent implements OnInit {
     await this.router.navigate([`vendors/vendor-edit/${id}`]);
   }
 
-  public deleteVendor(id) {
-
+  public async deleteVendor(id) {
+    await this.vendorService.deleteVendor(id);
+    location.reload();
   }
 }

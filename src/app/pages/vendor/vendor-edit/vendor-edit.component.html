@@ -28,8 +28,10 @@
     </mat-form-field>
 
     <div fxLayout="row" fxLayoutGap="20px">
-      <button mat-flat-button class="colored-btn" (click)="createNewVendor()">Speichern</button>
-      <button mat-raised-button>Abbrechen</button>
+      <button mat-flat-button class="colored-btn" *ngIf="!routeId" (click)="createNewVendor()">Speichern</button>
+      <button mat-flat-button class="colored-btn" *ngIf="routeId" (click)="updateVendor()">Speichern</button>
+      <button mat-raised-button *ngIf="routeId" (click)="deleteVendor()">Löschen</button>
+      <button mat-raised-button (click)="onBack()">Zurück</button>
     </div>
   </form>
 </div>
