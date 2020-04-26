@@ -70,9 +70,12 @@ public class VendorResource
 	}
 	
 	@PUT
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateVendor(Vendor vendor)
+	public Response updateVendor(@PathParam("id") int id, Vendor vendor)
 	{
+		vendor.setId(id);
+		
 		if(vendorService.updateVendor(vendor))
 			return Response.noContent().build();
 		
