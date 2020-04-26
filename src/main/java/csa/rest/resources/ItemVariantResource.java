@@ -131,13 +131,4 @@ public class ItemVariantResource
 		
 		return Response.noContent().build();
 	}
-	
-	
-	@POST
-	@Path("search")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public List<ItemVariant> searchItemVariants(Query query)
-	{
-		return itemVariantService.searchByName(query.getQuery());
-	}
 }
