@@ -480,7 +480,7 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public List<SalesLine> listBySalesHeader(SalesHeader salesHeader)
 	{
-		return handle.createQuery("SELECT * FROM sales_header WHERE `sales_header_id` = :getId")
+		return handle.createQuery("SELECT * FROM sales_line WHERE `sales_header_id` = :getId")
 				.bindMethods(salesHeader)
 				.mapTo(SalesLine.class)
 				.list();
