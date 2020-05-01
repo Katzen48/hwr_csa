@@ -27,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SaleLineComponent } from './pages/sale/sale-line/sale-line.component';
 import { SaleLineEditComponent } from './pages/sale/sale-line-edit/sale-line-edit.component';
+import { PurchaseComponent } from './pages/purchase/purchase.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SaleLineEditComponent } from './pages/sale/sale-line-edit/sale-line-edi
     VendorEditComponent,
     SaleComponent,
     SaleLineComponent,
-    SaleLineEditComponent
+    SaleLineEditComponent,
+    PurchaseComponent
   ],
   imports: [
     BrowserModule,

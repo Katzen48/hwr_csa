@@ -9,6 +9,7 @@ import { VendorComponent } from './pages/vendor/vendor.component';
 import { VendorEditComponent } from './pages/vendor/vendor-edit/vendor-edit.component';
 import { SaleComponent } from './pages/sale/sale.component';
 import { SaleLineComponent } from './pages/sale/sale-line/sale-line.component';
+import { PurchaseComponent } from './pages/purchase/purchase.component';
 
 
 const routes: Routes = [
@@ -63,6 +64,10 @@ const routes: Routes = [
   {
     path: 'sales/:id/lines',
     component: SaleLineComponent,
+  },
+  {
+    path: 'purchases',
+    component: PurchaseComponent,
   },
   {path: '**', redirectTo: 'dashboard'}
 ];

@@ -4,6 +4,7 @@ import { EmployeeService } from '../../services/employee.service';
 import { DateAdapter } from '@angular/material/core';
 import { SaleService } from '../../services/sale.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sale',
@@ -40,10 +41,9 @@ export class SaleComponent implements OnInit {
   }
 
   public async createSaleHeader() {
-    // TODO fix date
     const salesHeader = {
       employee_id: this.saleFormGroup.controls.employee.value.id,
-      posting_date: this.saleFormGroup.controls.posting_date.value
+      posting_date: moment(this.saleFormGroup.controls.posting_date.value).add(1, 'day')
     };
 
     const response = await this.saleService.postNewSaleHeader(salesHeader);
@@ -56,7 +56,7 @@ export class SaleComponent implements OnInit {
   public async updateSaleHeader() {
     const salesHeader = {
       employee_id: this.saleFormGroup.controls.employee.value.id,
-      posting_date: this.saleFormGroup.controls.posting_date.value
+      posting_date: moment(this.saleFormGroup.controls.posting_date.value).add(1, 'day')
     };
 
     await this.saleService.updateSaleHeader(this.routeId, salesHeader);
