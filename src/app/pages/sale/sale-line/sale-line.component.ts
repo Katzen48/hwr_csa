@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SaleLineEditComponent } from '../sale-line-edit/sale-line-edit.component';
+import { SaleService } from '../../../services/sale.service';
 
 @Component({
   selector: 'app-sale-line',
@@ -15,20 +16,13 @@ export class SaleLineComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               private route: ActivatedRoute,
-              private router: Router
+              private router: Router,
+              private saleService: SaleService
   ) {
   }
 
   ngOnInit(): void {
     this.routeId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-  }
-
-  public editSaleLine() {
-
-  }
-
-  public deleteSaleLine() {
-
   }
 
   public newSaleLine() {
@@ -44,5 +38,20 @@ export class SaleLineComponent implements OnInit {
 
   public async onBack() {
     await this.router.navigate([`sales/${this.routeId}`]);
+  }
+
+  public async editSaleLine(saleLine) {
+    const dialogRef = this.dialog.open(SaleLineEditComponent, {
+      data: {id: this.routeId, content: saleLine}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        window.location.reload();
+      }
+    });
+  }
+
+  public async deleteSaleLine(id) {
+    await this.saleService.deleteSaleLine(id);
   }
 }

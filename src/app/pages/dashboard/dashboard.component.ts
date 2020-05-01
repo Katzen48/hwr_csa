@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
+  }
+
+  public async onStock() {
+    // await this.router.navigate(['items']);
+  }
+
+  public async onItems() {
+    await this.router.navigate(['items']);
+  }
+
+  public async onEmployees() {
+    await this.router.navigate(['employees']);
+  }
+
+  public async onVendors() {
+    await this.router.navigate(['vendors']);
+  }
+
+  public async onSale() {
+    await this.router.navigate(['sales']);
+  }
+
+  public async onOrder() {
+    // await this.router.navigate(['items']);
   }
 }

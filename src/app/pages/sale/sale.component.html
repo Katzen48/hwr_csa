@@ -24,8 +24,10 @@
     </mat-form-field>
 
     <div fxLayout="row" fxLayoutGap="20px">
-      <button mat-flat-button class="colored-btn" (click)="createSalesHeader()">Speichern und weiter</button>
-      <button mat-raised-button>Abbrechen</button>
+      <button mat-flat-button class="colored-btn" *ngIf="!routeId" (click)="createSaleHeader()">Speichern und weiter</button>
+      <button mat-flat-button class="colored-btn" *ngIf="routeId" (click)="updateSaleHeader()">Speichern und weiter</button>
+      <button mat-raised-button *ngIf="routeId" (click)="deleteSaleHeader()">Löschen</button>
+      <button mat-raised-button (click)="onCancel()">Abbrechen</button>
     </div>
 
   </form>

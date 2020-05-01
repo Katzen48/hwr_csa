@@ -27,8 +27,8 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Aktionen</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-flat-button (click)="editSaleLine()">Bearbeiten</button>
-        <button mat-flat-button (click)="deleteSaleLine()">Löschen</button>
+        <button mat-flat-button (click)="editSaleLine(element)">Bearbeiten</button>
+        <button mat-flat-button (click)="deleteSaleLine(element.id)">Löschen</button>
       </td>
     </ng-container>
 

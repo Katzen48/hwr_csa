@@ -39,7 +39,8 @@ export class SaleComponent implements OnInit {
     }
   }
 
-  public async createSalesHeader() {
+  public async createSaleHeader() {
+    // TODO fix date
     const salesHeader = {
       employee_id: this.saleFormGroup.controls.employee.value.id,
       posting_date: this.saleFormGroup.controls.posting_date.value
@@ -50,5 +51,24 @@ export class SaleComponent implements OnInit {
     const id = locationSplit[locationSplit.length - 1];
 
     await this.router.navigate([`sales/${id}/lines`]);
+  }
+
+  public async updateSaleHeader() {
+    const salesHeader = {
+      employee_id: this.saleFormGroup.controls.employee.value.id,
+      posting_date: this.saleFormGroup.controls.posting_date.value
+    };
+
+    await this.saleService.updateSaleHeader(this.routeId, salesHeader);
+    await this.router.navigate([`sales/${this.routeId}/lines`]);
+  }
+
+  public async deleteSaleHeader() {
+    await this.saleService.deleteSaleHeader(this.routeId);
+    await this.router.navigate([`sales`]);
+  }
+
+  public async onCancel() {
+    await this.router.navigate([`dashboard`]);
   }
 }
