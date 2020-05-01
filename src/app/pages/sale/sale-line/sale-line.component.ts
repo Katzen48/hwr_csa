@@ -21,8 +21,9 @@ export class SaleLineComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.routeId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
+    await this.saleService.getAllSaleLinesByHeaderId(this.routeId);
   }
 
   public newSaleLine() {

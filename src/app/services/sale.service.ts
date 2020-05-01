@@ -39,7 +39,7 @@ export class SaleService {
   }
 
   public async getAllSaleLinesByHeaderId(id) {
-    // this.saleLines = await this.http.get<SaleLine[]>(`${environment.backendUrl}/salesheader/${id}`).toPromise();
+    this.saleLines = await this.http.get<SaleLine[]>(`${environment.backendUrl}/salesheader/${id}/line`).toPromise();
   }
 
   public async updateSaleLine(id, saleLine) {
