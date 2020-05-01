@@ -10,6 +10,7 @@ import { VendorEditComponent } from './pages/vendor/vendor-edit/vendor-edit.comp
 import { SaleComponent } from './pages/sale/sale.component';
 import { SaleLineComponent } from './pages/sale/sale-line/sale-line.component';
 import { PurchaseComponent } from './pages/purchase/purchase.component';
+import { PurchaseLineComponent } from './pages/purchase/purchase-line/purchase-line.component';
 
 
 const routes: Routes = [
@@ -68,6 +69,14 @@ const routes: Routes = [
   {
     path: 'purchases',
     component: PurchaseComponent,
+  },
+  {
+    path: 'purchases/:id',
+    component: PurchaseComponent,
+  },
+  {
+    path: 'purchases/:id/lines',
+    component: PurchaseLineComponent,
   },
   {path: '**', redirectTo: 'dashboard'}
 ];

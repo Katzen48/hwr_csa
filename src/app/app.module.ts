@@ -28,6 +28,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { SaleLineComponent } from './pages/sale/sale-line/sale-line.component';
 import { SaleLineEditComponent } from './pages/sale/sale-line-edit/sale-line-edit.component';
 import { PurchaseComponent } from './pages/purchase/purchase.component';
+import { PurchaseLineComponent } from './pages/purchase/purchase-line/purchase-line.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { PurchaseComponent } from './pages/purchase/purchase.component';
     SaleComponent,
     SaleLineComponent,
     SaleLineEditComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    PurchaseLineComponent
   ],
   imports: [
     BrowserModule,

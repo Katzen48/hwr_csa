@@ -41,12 +41,7 @@ export class SaleComponent implements OnInit {
   }
 
   public async createSaleHeader() {
-    const salesHeader = {
-      employee_id: this.saleFormGroup.controls.employee.value.id,
-      posting_date: moment(this.saleFormGroup.controls.posting_date.value).add(1, 'day')
-    };
-
-    const response = await this.saleService.postNewSaleHeader(salesHeader);
+    const response = await this.saleService.postNewSaleHeader(this.createSaleHeaderBody());
     const locationSplit = response.headers.get('location').split('/');
     const id = locationSplit[locationSplit.length - 1];
 
@@ -54,12 +49,7 @@ export class SaleComponent implements OnInit {
   }
 
   public async updateSaleHeader() {
-    const salesHeader = {
-      employee_id: this.saleFormGroup.controls.employee.value.id,
-      posting_date: moment(this.saleFormGroup.controls.posting_date.value).add(1, 'day')
-    };
-
-    await this.saleService.updateSaleHeader(this.routeId, salesHeader);
+    await this.saleService.updateSaleHeader(this.routeId, this.createSaleHeaderBody());
     await this.router.navigate([`sales/${this.routeId}/lines`]);
   }
 
@@ -70,5 +60,12 @@ export class SaleComponent implements OnInit {
 
   public async onCancel() {
     await this.router.navigate([`dashboard`]);
+  }
+
+  private createSaleHeaderBody() {
+    return {
+      employee_id: this.saleFormGroup.controls.employee.value.id,
+      posting_date: moment(this.saleFormGroup.controls.posting_date.value).add(1, 'day')
+    };
   }
 }
