@@ -13,7 +13,7 @@ import { PurchaseService } from '../../services/purchase.service';
 })
 export class PurchaseComponent implements OnInit {
   public routeId: number;
-  public vendor = new FormControl();
+  public vendorId = new FormControl();
   public postingDate = new FormControl();
   public deliveryDate = new FormControl();
 
@@ -30,6 +30,13 @@ export class PurchaseComponent implements OnInit {
     this.routeId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
 
     await this.vendorService.getVendors();
+
+    if (this.routeId) {
+      const purchaseHeader = await this.purchaseService.getPurchaseHeaderById(this.routeId);
+      this.vendorId.setValue(purchaseHeader.vendor.id);
+      this.postingDate.setValue(new Date(purchaseHeader.posting_date));
+      this.deliveryDate.setValue(new Date(purchaseHeader.delivery_date));
+    }
   }
 
   public async postNewPurchaseHeader() {
@@ -46,7 +53,7 @@ export class PurchaseComponent implements OnInit {
 
   private createPurchaseHeaderBody() {
     return {
-      vendor_id: this.vendor.value.id,
+      vendor_id: this.vendorId.value,
       posting_date: moment(this.postingDate.value).add(1, 'day'),
       delivery_date: moment(this.deliveryDate.value).add(1, 'day')
     };

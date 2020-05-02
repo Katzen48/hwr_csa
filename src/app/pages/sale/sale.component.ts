@@ -16,7 +16,7 @@ export class SaleComponent implements OnInit {
   public saleHeader;
 
   public saleFormGroup: FormGroup = new FormGroup({
-    employee: new FormControl(),
+    employeeId: new FormControl(),
     posting_date: new FormControl(),
   });
 
@@ -35,7 +35,7 @@ export class SaleComponent implements OnInit {
 
     if (this.routeId) {
       this.saleHeader = await this.saleService.getSaleHeaderById(this.routeId);
-      this.saleFormGroup.controls.employee.setValue(this.saleHeader.employee);
+      this.saleFormGroup.controls.employeeId.setValue(this.saleHeader.employee.id);
       this.saleFormGroup.controls.posting_date.setValue(new Date(this.saleHeader.posting_date));
     }
   }
@@ -64,7 +64,7 @@ export class SaleComponent implements OnInit {
 
   private createSaleHeaderBody() {
     return {
-      employee_id: this.saleFormGroup.controls.employee.value.id,
+      employee_id: this.saleFormGroup.controls.employeeId.value,
       posting_date: moment(this.saleFormGroup.controls.posting_date.value).add(1, 'day')
     };
   }

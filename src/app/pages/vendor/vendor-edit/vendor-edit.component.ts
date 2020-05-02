@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VendorService } from '../../../services/vendor.service';
+import { Vendor } from '../../../models/vendor';
 
 @Component({
   selector: 'app-vendor-edit',
@@ -10,7 +11,7 @@ import { VendorService } from '../../../services/vendor.service';
 })
 export class VendorEditComponent implements OnInit {
   public routeId: number;
-  public vendor;
+  public vendor: Vendor;
 
   public vendorFormGroup: FormGroup = new FormGroup({
     name: new FormControl(),
@@ -23,7 +24,8 @@ export class VendorEditComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               public vendorService: VendorService,
               private router: Router
-  ) { }
+  ) {
+  }
 
   async ngOnInit() {
     this.routeId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
@@ -31,35 +33,19 @@ export class VendorEditComponent implements OnInit {
       this.vendor = await this.vendorService.getVendorById(this.routeId);
       this.vendorFormGroup.controls.name.setValue(this.vendor.name);
       this.vendorFormGroup.controls.address.setValue(this.vendor.address);
-      this.vendorFormGroup.controls.postCode.setValue(this.vendor.postCode);
+      this.vendorFormGroup.controls.postCode.setValue(this.vendor.post_code);
       this.vendorFormGroup.controls.city.setValue(this.vendor.city);
       this.vendorFormGroup.controls.country.setValue(this.vendor.country);
     }
   }
 
-  public async createNewVendor() {
-   const vendor = {
-     name: this.vendorFormGroup.controls.name.value,
-     address: this.vendorFormGroup.controls.address.value,
-     post_code: this.vendorFormGroup.controls.postCode.value,
-     city: this.vendorFormGroup.controls.city.value,
-     country: this.vendorFormGroup.controls.country.value,
-   };
-
-   await this.vendorService.postNewVendor(vendor);
-   await this.router.navigate(['vendors']);
+  public async postNewVendor() {
+    await this.vendorService.postNewVendor(this.createVendorBody());
+    await this.router.navigate(['vendors']);
   }
 
   public async updateVendor() {
-    const vendor = {
-      name: this.vendorFormGroup.controls.name.value,
-      address: this.vendorFormGroup.controls.address.value,
-      post_code: this.vendorFormGroup.controls.postCode.value,
-      city: this.vendorFormGroup.controls.city.value,
-      country: this.vendorFormGroup.controls.country.value,
-    };
-
-    await this.vendorService.updateVendor(this.routeId, vendor);
+    await this.vendorService.updateVendor(this.routeId, this.createVendorBody());
     await this.router.navigate(['vendors']);
   }
 
@@ -70,5 +56,15 @@ export class VendorEditComponent implements OnInit {
 
   public async onBack() {
     await this.router.navigate([`vendors`]);
+  }
+
+  private createVendorBody() {
+    return {
+      name: this.vendorFormGroup.controls.name.value,
+      address: this.vendorFormGroup.controls.address.value,
+      post_code: this.vendorFormGroup.controls.postCode.value,
+      city: this.vendorFormGroup.controls.city.value,
+      country: this.vendorFormGroup.controls.country.value,
+    };
   }
 }

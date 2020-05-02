@@ -7,10 +7,9 @@
     <mat-form-field appearance="fill" class="long-form-field">
       <mat-label>Verkäufer</mat-label>
 
-      <!-- TODO value is not printed although it is already there -->
-      <mat-select formControlName="employee">
+      <mat-select formControlName="employeeId">
         <mat-option *ngFor="let employee of employeeService.employees"
-                    [value]="employee">
+                    [value]="employee.id">
           {{ employee.given_name }} {{ employee.surname }}
         </mat-option>
       </mat-select>
