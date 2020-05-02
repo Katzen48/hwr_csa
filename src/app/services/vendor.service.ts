@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Vendor } from '../models/vendor';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class VendorService {
   constructor(private http: HttpClient) { }
 
   public async getVendors() {
-    this.vendors = await this.http.get(`${environment.backendUrl}/vendor`).toPromise();
+    this.vendors = await this.http.get<Vendor[]>(`${environment.backendUrl}/vendor`).toPromise();
   }
 
   public async getVendorById(id) {
-    return await this.http.get(`${environment.backendUrl}/vendor/${id}`).toPromise();
+    return await this.http.get<Vendor>(`${environment.backendUrl}/vendor/${id}`).toPromise();
   }
 
   public async postNewVendor(vendor) {

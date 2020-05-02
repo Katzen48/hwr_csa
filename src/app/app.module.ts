@@ -29,6 +29,8 @@ import { SaleLineComponent } from './pages/sale/sale-line/sale-line.component';
 import { SaleLineEditComponent } from './pages/sale/sale-line-edit/sale-line-edit.component';
 import { PurchaseComponent } from './pages/purchase/purchase.component';
 import { PurchaseLineComponent } from './pages/purchase/purchase-line/purchase-line.component';
+import { PurchaseLineEditComponent } from './pages/purchase/purchase-line-edit/purchase-line-edit.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { PurchaseLineComponent } from './pages/purchase/purchase-line/purchase-l
     SaleLineComponent,
     SaleLineEditComponent,
     PurchaseComponent,
-    PurchaseLineComponent
+    PurchaseLineComponent,
+    PurchaseLineEditComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { PurchaseLineComponent } from './pages/purchase/purchase-line/purchase-l
     HttpClientModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatRadioModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

@@ -24,6 +24,8 @@ export class SaleLineEditComponent implements OnInit {
   async ngOnInit() {
     if (!this.data.content) {
       this.data.content = new SaleLine();
+    } else {
+      this.itemVariant.setValue(this.data.content.itemVariant);
     }
 
     await this.itemService.getItems();
@@ -34,22 +36,20 @@ export class SaleLineEditComponent implements OnInit {
   }
 
   public async postNewSaleLine() {
-    const saleLine = {
-      item_variant_id: this.itemVariant.value.id,
-      item_price: this.data.content.price,
-      quantity: this.data.content.quantity,
-    };
-    await this.saleService.postNewSaleLine(this.data.id, saleLine);
+    // await this.saleService.postNewSaleLine(this.data.id, this.createSaleLineBody());
     this.dialogRef.close();
   }
 
   public async updateSaleLine() {
-    const saleLine = {
-      item_variant_id: this.data.content.item_variant.id,
+    // await this.saleService.updateSaleLine(this.data.id, this.createSaleLineBody());
+    this.dialogRef.close();
+  }
+
+  private createSaleLineBody() {
+    return {
+      item_variant_id: this.itemVariant.value.id,
       item_price: this.data.content.price,
       quantity: this.data.content.quantity,
     };
-    await this.saleService.updateSaleLine(this.data.id, saleLine);
-    this.dialogRef.close();
   }
 }

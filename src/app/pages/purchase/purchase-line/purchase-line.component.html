@@ -3,10 +3,10 @@
 
   <div class="heading">2. Einkaufszeilen hinzufügen</div>
 
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="purchaseService.purchaseLines">
     <ng-container matColumnDef="itemVariant">
       <th mat-header-cell *matHeaderCellDef>Artikelvariante</th>
-      <td mat-cell *matCellDef="let element"> {{element.itemVariant}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.itemVariant.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="price">
@@ -32,8 +32,8 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Aktionen</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-flat-button>Bearbeiten</button>
-        <button mat-flat-button>Löschen</button>
+        <button mat-flat-button (click)="editPurchaseLine(element)">Bearbeiten</button>
+        <button mat-flat-button (click)="deletePurchaseLine(element.id)">Löschen</button>
       </td>
     </ng-container>
 
@@ -42,7 +42,7 @@
   </table>
 
   <div fxLayout="row" fxLayoutGap="20px">
-    <button mat-flat-button class="colored-btn">Neue Einkauszeile erstellen</button>
+    <button mat-flat-button class="colored-btn" (click)="newPurchaseLine()">Neue Einkauszeile erstellen</button>
     <button mat-raised-button (click)="onBack()">Zurück</button>
   </div>
 

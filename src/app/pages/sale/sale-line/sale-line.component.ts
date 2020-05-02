@@ -11,13 +11,12 @@ import { SaleService } from '../../../services/sale.service';
 })
 export class SaleLineComponent implements OnInit {
   public displayedColumns = ['itemVariant', 'price', 'quantity', 'lineAmount', 'actions'];
-  public dataSource;
   public routeId: number;
 
   constructor(public dialog: MatDialog,
               private route: ActivatedRoute,
               private router: Router,
-              private saleService: SaleService
+              public saleService: SaleService
   ) {
   }
 

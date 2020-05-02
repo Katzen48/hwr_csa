@@ -1,5 +1,5 @@
 <div mat-dialog-title *ngIf="data.content.itemVariant">{{ itemVariant.value.name }}</div>
-<div mat-dialog-title *ngIf="!data.content.itemVariant">Neue Buchungszeile</div>
+<div mat-dialog-title *ngIf="!data.content.itemVariant">Neue Einkaufszeile</div>
 
 <div mat-dialog-content fxLayout="column" fxLayoutGap="16px">
 
@@ -34,18 +34,25 @@
     <mat-label>Menge</mat-label>
     <input matInput type="number" [(ngModel)]="data.content.quantity">
   </mat-form-field>
+
+  <mat-label>Geliefert?</mat-label>
+  <mat-radio-group [(ngModel)]="data.content.delivered">
+    <mat-radio-button *ngFor="let option of options" [value]="option" color="accent" class="radio-btn">
+      {{ option.name }}
+    </mat-radio-button>
+  </mat-radio-group>
+
 </div>
 
 <div mat-dialog-actions fxLayout="row" fxLayoutGap="20px">
   <button mat-flat-button
           class="colored-btn"
           *ngIf="!data.content.id"
-          (click)="postNewSaleLine()">Speichern
+          (click)="postNewPurchaseLine()">Speichern
   </button>
   <button mat-flat-button
           class="colored-btn"
-          *ngIf="data.content.id"
-          (click)="updateSaleLine()">Speichern
+          *ngIf="data.content.id">Speichern
   </button>
   <button mat-raised-button [mat-dialog-close]="'cancel'">Abbrechen</button>
 </div>

@@ -32,7 +32,7 @@ export class PurchaseComponent implements OnInit {
     await this.vendorService.getVendors();
   }
 
-  public async createPurchaseHeader() {
+  public async postNewPurchaseHeader() {
     const response = await this.purchaseService.postNewPurchaseHeader(this.createPurchaseHeaderBody());
     const locationSplit = response.headers.get('location').split('/');
     const id = locationSplit[locationSplit.length - 1];
