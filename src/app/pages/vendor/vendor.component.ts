@@ -9,14 +9,12 @@ import { Router } from '@angular/router';
 })
 export class VendorComponent implements OnInit {
   public displayedColumns = ['name', 'address', 'postCode', 'city', 'country', 'actions'];
-  public dataSource;
 
   constructor(public vendorService: VendorService, private router: Router) {
   }
 
   async ngOnInit() {
     await this.vendorService.getVendors();
-    this.dataSource = this.vendorService.vendors;
   }
 
   public async newVendor() {

@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public async onStock() {
-    // await this.router.navigate(['items']);
+    await this.router.navigate(['stocks']);
   }
 
   public async onItems() {

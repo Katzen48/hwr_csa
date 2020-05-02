@@ -52,7 +52,8 @@
   </button>
   <button mat-flat-button
           class="colored-btn"
-          *ngIf="data.content.id">Speichern
+          *ngIf="data.content.id"
+          (click)="updatePurchaseLine()">Speichern
   </button>
   <button mat-raised-button [mat-dialog-close]="'cancel'">Abbrechen</button>
 </div>
