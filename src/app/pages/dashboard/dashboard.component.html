@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutGap="20px">
-  <app-menu></app-menu>
+  <app-menu [currentTab]="'dashboard'"></app-menu>
 
   <p>Herzlich Willkommen auf der Startseite von ChickClothes. Hier können Sie zu folgenden Seiten gelangen:</p>
 
@@ -9,7 +9,7 @@
     <div class="hover" (click)="onEmployees()">Verkäufer</div>
     <div class="hover" (click)="onVendors()">Lieferanten</div>
     <div class="hover" (click)="onSale()">Verkauf</div>
-    <div class="hover" (click)="onOrder()">Bestellung</div>
+    <div class="hover" (click)="onPurchases()">Bestellung</div>
   </div>
 </div>
 

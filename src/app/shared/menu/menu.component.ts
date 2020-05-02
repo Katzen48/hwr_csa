@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  @Input()
+  currentTab: string;
 
   constructor(private router: Router) {
   }
@@ -38,7 +40,7 @@ export class MenuComponent implements OnInit {
     await this.router.navigate(['sales']);
   }
 
-  public async onOrder() {
+  public async onPurchases() {
     await this.router.navigate(['purchases']);
   }
 }

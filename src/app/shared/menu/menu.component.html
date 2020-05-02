@@ -1,9 +1,52 @@
 <div fxLayout="row" fxLayoutGap="20px">
-  <div class="hover" (click)="onDashboard()">Startseite</div>
-  <div class="hover" (click)="onStock()">Lager</div>
-  <div class="hover" (click)="onItems()">Artikel</div>
-  <div class="hover" (click)="onEmployees()">Verkäufer</div>
-  <div class="hover" (click)="onVendors()">Lieferanten</div>
-  <div class="hover" (click)="onSale()">Verkauf</div>
-  <div class="hover" (click)="onOrder()">Bestellung</div>
+
+  <div *ngIf="currentTab === 'dashboard'; else normalDashboard">
+    <div class="hover bold" (click)="onDashboard()">Startseite</div>
+  </div>
+  <ng-template #normalDashboard>
+    <div class="hover" (click)="onDashboard()">Startseite</div>
+  </ng-template>
+
+  <div *ngIf="currentTab === 'stocks'; else normalStocks">
+    <div class="hover bold" (click)="onStock()">Lager</div>
+  </div>
+  <ng-template #normalStocks>
+    <div class="hover" (click)="onStock()">Lager</div>
+  </ng-template>
+
+  <div *ngIf="currentTab === 'items'; else normalItems">
+    <div class="hover bold" (click)="onItems()">Artikel</div>
+  </div>
+  <ng-template #normalItems>
+    <div class="hover" (click)="onItems()">Artikel</div>
+  </ng-template>
+
+  <div *ngIf="currentTab === 'employees'; else normalEmployees">
+    <div class="hover bold" (click)="onEmployees()">Verkäufer</div>
+  </div>
+  <ng-template #normalEmployees>
+    <div class="hover" (click)="onEmployees()">Verkäufer</div>
+  </ng-template>
+
+  <div *ngIf="currentTab === 'vendors'; else normalVendors">
+    <div class="hover bold" (click)="onVendors()">Lieferanten</div>
+  </div>
+  <ng-template #normalVendors>
+    <div class="hover" (click)="onVendors()">Lieferanten</div>
+  </ng-template>
+
+  <div *ngIf="currentTab === 'sales'; else normalSales">
+    <div class="hover bold" (click)="onSale()">Verkauf</div>
+  </div>
+  <ng-template #normalSales>
+    <div class="hover" (click)="onSale()">Verkauf</div>
+  </ng-template>
+
+  <div *ngIf="currentTab === 'purchases'; else normalPurchases">
+    <div class="hover bold" (click)="onPurchases()">Bestellung</div>
+  </div>
+  <ng-template #normalPurchases>
+    <div class="hover" (click)="onPurchases()">Bestellung</div>
+  </ng-template>
+
 </div>

@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
     await this.router.navigate(['sales']);
   }
 
-  public async onOrder() {
+  public async onPurchases() {
     await this.router.navigate(['purchases']);
   }
 }
