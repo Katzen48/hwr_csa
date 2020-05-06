@@ -79,7 +79,7 @@ public class SalesHeaderService implements ISalesHeaderService
 				
 				dbAdapter.createItemLedgerEntry(itemLedgerEntry);
 				
-				ValueLedgerEntry valueLedgerEntry = new ValueLedgerEntry(line.getLineAmount(), salesHeader.getPostingDate(), SourceDocType.SALE, salesHeader.getId());
+				ValueLedgerEntry valueLedgerEntry = new ValueLedgerEntry(-line.getLineAmount(), salesHeader.getPostingDate(), SourceDocType.SALE, salesHeader.getId());
 				
 				dbAdapter.createValueLedgerEntry(valueLedgerEntry);
 			}
