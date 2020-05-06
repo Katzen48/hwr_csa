@@ -39,7 +39,7 @@ export class SaleLineComponent implements OnInit {
   }
 
   public async onBack() {
-    await this.router.navigate([`sales/${this.routeId}`]);
+    await this.router.navigate([`sales`]);
   }
 
   public async editSaleLine(saleLine) {
@@ -69,6 +69,9 @@ export class SaleLineComponent implements OnInit {
         });
       }
     }
+  }
 
+  public displayPrice(price) {
+    return price.toFixed(2);
   }
 }

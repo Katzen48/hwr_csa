@@ -13,6 +13,7 @@ import { PurchaseService } from '../../../services/purchase.service';
 export class PurchaseLineEditComponent implements OnInit {
   public item = new FormControl();
   public itemVariant = new FormControl();
+  public price = new FormControl();
   public itemVariants;
 
   public options = [
@@ -33,6 +34,7 @@ export class PurchaseLineEditComponent implements OnInit {
       this.data.content.delivered = false;
     } else {
       this.itemVariant.setValue(this.data.content.itemVariant);
+      this.price.setValue(this.data.content.price);
     }
 
     await this.itemService.getAllItems();
@@ -55,7 +57,7 @@ export class PurchaseLineEditComponent implements OnInit {
   private createPurchaseLineBody() {
     return {
       item_variant_id: this.itemVariant.value.id,
-      price: this.data.content.price,
+      price: this.price.value,
       quantity: this.data.content.quantity,
       delivered: this.data.content.delivered
     };

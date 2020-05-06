@@ -1,33 +1,34 @@
 <div fxLayout="column" fxLayoutGap="20px">
   <app-menu [currentTab]="'sales'"></app-menu>
 
-  <div class="heading">1. Buchungskopf erstellen</div>
+  <div class="heading">Offene Verkäufe</div>
 
-  <form [formGroup]="saleFormGroup" fxLayout="column" fxLayoutGap="20px">
-    <mat-form-field appearance="fill" class="long-form-field">
-      <mat-label>Verkäufer</mat-label>
+  <table mat-table [dataSource]="saleService.saleHeaders">
+    <ng-container matColumnDef="employee">
+      <th mat-header-cell *matHeaderCellDef>Verkäufer</th>
+      <td mat-cell *matCellDef="let element"> {{element.employee.given_name}} {{ element.employee.surname }}</td>
+    </ng-container>
 
-      <mat-select formControlName="employeeId">
-        <mat-option *ngFor="let employee of employeeService.employees"
-                    [value]="employee.id">
-          {{ employee.given_name }} {{ employee.surname }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <ng-container matColumnDef="postingDate">
+      <th mat-header-cell *matHeaderCellDef>Buchungsdatum</th>
+      <td mat-cell *matCellDef="let element"> {{ formatDate(element.posting_date) }} </td>
+    </ng-container>
 
-    <mat-form-field appearance="fill" class="long-form-field">
-      <mat-label>Buchungsdatum</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="posting_date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Aktionen</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button (click)="onShowLines(element.id)">Details</button>
+        <button mat-flat-button (click)="onEditSalesHeader(element.id)">Bearbeiten</button>
+        <button mat-flat-button (click)="deleteSaleHeader(element.id)">Löschen</button>
+      </td>
+    </ng-container>
 
-    <div fxLayout="row" fxLayoutGap="20px">
-      <button mat-flat-button class="colored-btn" *ngIf="!routeId" (click)="postNewSaleHeader()">Speichern und weiter</button>
-      <button mat-flat-button class="colored-btn" *ngIf="routeId" (click)="updateSaleHeader()">Speichern und weiter</button>
-      <button mat-raised-button *ngIf="routeId" (click)="deleteSaleHeader()">Löschen</button>
-      <button mat-raised-button (click)="onCancel()">Abbrechen</button>
-    </div>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 
-  </form>
+  <button mat-flat-button
+          class="colored-btn"
+          (click)="onNewSaleHeader()"
+          style="width: fit-content">Neuer Verkauf</button>
 </div>

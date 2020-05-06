@@ -34,6 +34,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { StockComponent } from './pages/stock/stock.component';
 import { PurchaseEditComponent } from './pages/purchase/purchase-edit/purchase-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SaleEditComponent } from './pages/sale/sale-edit/sale-edit.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PurchaseLineComponent,
     PurchaseLineEditComponent,
     StockComponent,
-    PurchaseEditComponent
+    PurchaseEditComponent,
+    SaleEditComponent
   ],
   imports: [
     BrowserModule,

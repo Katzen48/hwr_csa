@@ -13,6 +13,7 @@ import { PurchaseComponent } from './pages/purchase/purchase.component';
 import { PurchaseLineComponent } from './pages/purchase/purchase-line/purchase-line.component';
 import { StockComponent } from './pages/stock/stock.component';
 import { PurchaseEditComponent } from './pages/purchase/purchase-edit/purchase-edit.component';
+import { SaleEditComponent } from './pages/sale/sale-edit/sale-edit.component';
 
 
 const routes: Routes = [
@@ -61,8 +62,12 @@ const routes: Routes = [
     component: SaleComponent,
   },
   {
-    path: 'sales/:id',
-    component: SaleComponent,
+    path: 'sales/edit',
+    component: SaleEditComponent,
+  },
+  {
+    path: 'sales/edit/:id',
+    component: SaleEditComponent,
   },
   {
     path: 'sales/:id/lines',

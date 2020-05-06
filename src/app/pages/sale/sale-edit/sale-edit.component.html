@@ -1,0 +1,33 @@
+<div fxLayout="column" fxLayoutGap="20px">
+  <app-menu [currentTab]="'sales'"></app-menu>
+
+  <div class="heading">Buchungskopf</div>
+
+  <form [formGroup]="saleFormGroup" fxLayout="column" fxLayoutGap="20px">
+    <mat-form-field appearance="fill" class="long-form-field">
+      <mat-label>Verkäufer</mat-label>
+
+      <mat-select formControlName="employeeId">
+        <mat-option *ngFor="let employee of employeeService.employees"
+                    [value]="employee.id">
+          {{ employee.given_name }} {{ employee.surname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="long-form-field">
+      <mat-label>Buchungsdatum</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="posting_date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="20px">
+      <button mat-flat-button class="colored-btn" *ngIf="!routeId" (click)="postNewSaleHeader()">Speichern und weiter</button>
+      <button mat-flat-button class="colored-btn" *ngIf="routeId" (click)="updateSaleHeader()">Speichern und weiter</button>
+      <button mat-raised-button *ngIf="routeId" (click)="deleteSaleHeader()">Löschen</button>
+      <button mat-raised-button (click)="onCancel()">Abbrechen</button>
+    </div>
+
+  </form>
+</div>

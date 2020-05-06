@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="20px">
   <app-menu [currentTab]="'purchases'"></app-menu>
 
-  <div class="heading">Hier finden Sie Ihre aktiven Bestellungen</div>
+  <div class="heading">Aktive Bestellungen</div>
 
   <table mat-table [dataSource]="purchaseService.purchaseHeaders">
     <ng-container matColumnDef="vendor">

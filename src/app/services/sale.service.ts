@@ -8,9 +8,14 @@ import { SaleLine } from '../models/saleLine';
   providedIn: 'root'
 })
 export class SaleService {
+  public saleHeaders: SaleHeader[];
   public saleLines: SaleLine[];
 
   constructor(private http: HttpClient) {
+  }
+
+  public async getAllSaleHeaders() {
+    this.saleHeaders = await this.http.get<SaleHeader[]>(`${environment.backendUrl}/salesheader`).toPromise();
   }
 
   public async postNewSaleHeader(saleHeader) {

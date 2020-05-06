@@ -13,6 +13,7 @@ import { ItemService } from '../../../services/item.service';
 export class SaleLineEditComponent implements OnInit {
   public item = new FormControl();
   public itemVariant = new FormControl();
+  public itemPrice = new FormControl();
   public itemVariants;
 
   constructor(public dialogRef: MatDialogRef<SaleLineEditComponent>,
@@ -26,6 +27,7 @@ export class SaleLineEditComponent implements OnInit {
       this.data.content = new SaleLine();
     } else {
       this.itemVariant.setValue(this.data.content.itemVariant);
+      this.itemPrice.setValue(this.data.content.itemPrice);
     }
 
     await this.itemService.getAllItems();
@@ -52,7 +54,7 @@ export class SaleLineEditComponent implements OnInit {
   private createSaleLineBody() {
     return {
       item_variant_id: this.itemVariant.value.id,
-      item_price: this.data.content.itemPrice,
+      item_price: this.itemPrice.value,
       quantity: this.data.content.quantity,
     };
   }

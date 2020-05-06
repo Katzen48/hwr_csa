@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { EmployeeService } from '../../services/employee.service';
-import { DateAdapter } from '@angular/material/core';
 import { SaleService } from '../../services/sale.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -12,60 +9,36 @@ import * as moment from 'moment';
   styleUrls: ['./sale.component.css']
 })
 export class SaleComponent implements OnInit {
-  public routeId;
-  public saleHeader;
+  public displayedColumns = ['employee', 'postingDate', 'actions'];
 
-  public saleFormGroup: FormGroup = new FormGroup({
-    employeeId: new FormControl(),
-    posting_date: new FormControl(),
-  });
-
-  constructor(public employeeService: EmployeeService,
-              public saleService: SaleService,
+  constructor(public saleService: SaleService,
               private router: Router,
-              private route: ActivatedRoute,
-              private dateAdapter: DateAdapter<Date>
   ) {
-    this.dateAdapter.setLocale('de');
   }
 
   async ngOnInit() {
-    await this.employeeService.getAllEmployees();
-    this.routeId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-
-    if (this.routeId) {
-      this.saleHeader = await this.saleService.getSaleHeaderById(this.routeId);
-      this.saleFormGroup.controls.employeeId.setValue(this.saleHeader.employee.id);
-      this.saleFormGroup.controls.posting_date.setValue(new Date(this.saleHeader.posting_date));
-    }
+    await this.saleService.getAllSaleHeaders();
   }
 
-  public async postNewSaleHeader() {
-    const response = await this.saleService.postNewSaleHeader(this.createSaleHeaderBody());
-    const locationSplit = response.headers.get('location').split('/');
-    const id = locationSplit[locationSplit.length - 1];
+  public formatDate(date) {
+    const realDate = new Date(date);
+    return moment(realDate).format('DD.MM.YYYY');
+  }
 
+  public async onShowLines(id) {
     await this.router.navigate([`sales/${id}/lines`]);
   }
 
-  public async updateSaleHeader() {
-    await this.saleService.updateSaleHeader(this.routeId, this.createSaleHeaderBody());
-    await this.router.navigate([`sales/${this.routeId}/lines`]);
+  public async onEditSalesHeader(id) {
+    await this.router.navigate([`sales/edit/${id}`]);
   }
 
-  public async deleteSaleHeader() {
-    await this.saleService.deleteSaleHeader(this.routeId);
-    await this.router.navigate([`sales`]);
+  public async deleteSaleHeader(id) {
+    await this.saleService.deleteSaleHeader(id);
+    window.location.reload();
   }
 
-  public async onCancel() {
-    await this.router.navigate([`dashboard`]);
-  }
-
-  private createSaleHeaderBody() {
-    return {
-      employee_id: this.saleFormGroup.controls.employeeId.value,
-      posting_date: moment(this.saleFormGroup.controls.posting_date.value).add(1, 'day')
-    };
+  public async onNewSaleHeader() {
+    await this.router.navigate([`sales/edit`]);
   }
 }

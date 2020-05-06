@@ -27,7 +27,7 @@
 
   <mat-form-field appearance="fill" class="long-form-field">
     <mat-label>Preis in €</mat-label>
-    <input matInput [(ngModel)]="data.content.price">
+    <input matInput [formControl]="price">
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="long-form-field">

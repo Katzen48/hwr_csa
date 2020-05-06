@@ -79,4 +79,7 @@ export class ItemDetailComponent implements OnInit {
     location.reload();
   }
 
+  public displayPrice(price) {
+    return price.toFixed(2);
+  }
 }
