@@ -30,7 +30,7 @@ export class SaleComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.employeeService.getEmployees();
+    await this.employeeService.getAllEmployees();
     this.routeId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
 
     if (this.routeId) {
@@ -40,7 +40,7 @@ export class SaleComponent implements OnInit {
     }
   }
 
-  public async createSaleHeader() {
+  public async postNewSaleHeader() {
     const response = await this.saleService.postNewSaleHeader(this.createSaleHeaderBody());
     const locationSplit = response.headers.get('location').split('/');
     const id = locationSplit[locationSplit.length - 1];

@@ -13,7 +13,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.employeeService.getEmployees();
+    await this.employeeService.getAllEmployees();
   }
 
   public async onNewEmployee() {

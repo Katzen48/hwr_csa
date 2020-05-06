@@ -8,5 +8,5 @@ export class PurchaseLine {
   price: number;
   quantity: number;
   'line_amount': number;
-  delivered: number;
+  delivered: boolean;
 }

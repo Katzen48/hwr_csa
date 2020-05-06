@@ -29,7 +29,7 @@ export class PurchaseComponent implements OnInit {
   async ngOnInit() {
     this.routeId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
 
-    await this.vendorService.getVendors();
+    await this.vendorService.getAllVendors();
 
     if (this.routeId) {
       const purchaseHeader = await this.purchaseService.getPurchaseHeaderById(this.routeId);
@@ -45,6 +45,15 @@ export class PurchaseComponent implements OnInit {
     const id = locationSplit[locationSplit.length - 1];
 
     await this.router.navigate([`purchases/${id}/lines`]);
+  }
+
+  public async updatePurchaseHeader() {
+    // TODO implement methode
+  }
+
+  public async deletePurchaseHeader() {
+    await this.purchaseService.deletePurchaseHeader(this.routeId);
+    await this.router.navigate([`purchases`]);
   }
 
   public async onCancel() {

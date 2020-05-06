@@ -28,7 +28,7 @@ export class SaleLineEditComponent implements OnInit {
       this.itemVariant.setValue(this.data.content.itemVariant);
     }
 
-    await this.itemService.getItems();
+    await this.itemService.getAllItems();
 
     this.item.valueChanges.subscribe(async () => {
       this.itemVariants = await this.itemService.getItemVariantsById(this.item.value.id);
@@ -36,19 +36,19 @@ export class SaleLineEditComponent implements OnInit {
   }
 
   public async postNewSaleLine() {
-    // await this.saleService.postNewSaleLine(this.data.id, this.createSaleLineBody());
+    await this.saleService.postNewSaleLine(this.data.id, this.createSaleLineBody());
     this.dialogRef.close();
   }
 
   public async updateSaleLine() {
-    // await this.saleService.updateSaleLine(this.data.id, this.createSaleLineBody());
+    await this.saleService.updateSaleLine(this.data.id, this.data.content.id, this.createSaleLineBody());
     this.dialogRef.close();
   }
 
   private createSaleLineBody() {
     return {
       item_variant_id: this.itemVariant.value.id,
-      item_price: this.data.content.price,
+      item_price: this.data.content.itemPrice,
       quantity: this.data.content.quantity,
     };
   }

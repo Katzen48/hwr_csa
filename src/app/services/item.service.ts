@@ -13,7 +13,7 @@ export class ItemService {
   constructor(private http: HttpClient) {
   }
 
-  public async getItems() {
+  public async getAllItems() {
     this.items = await this.http.get<Item[]>(`${environment.backendUrl}/item`).toPromise();
   }
 

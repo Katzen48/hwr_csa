@@ -16,8 +16,8 @@ export class PurchaseLineEditComponent implements OnInit {
   public itemVariants;
 
   public options = [
-    {id: 1, name: 'Ja'},
-    {id: 0, name: 'Nein'}
+    {value: true, name: 'Ja'},
+    {value: false, name: 'Nein'}
   ];
 
   constructor(public dialogRef: MatDialogRef<PurchaseLineEditComponent>,
@@ -30,9 +30,11 @@ export class PurchaseLineEditComponent implements OnInit {
   async ngOnInit() {
     if (!this.data.content) {
       this.data.content = new PurchaseLine();
+    } else {
+      this.itemVariant.setValue(this.data.content.itemVariant);
     }
 
-    await this.itemService.getItems();
+    await this.itemService.getAllItems();
 
     this.item.valueChanges.subscribe(async () => {
       this.itemVariants = await this.itemService.getItemVariantsById(this.item.value.id);
@@ -40,23 +42,21 @@ export class PurchaseLineEditComponent implements OnInit {
   }
 
   public async postNewPurchaseLine() {
-    // await this.purchaseService.postNewPurchaseLine(this.data.id, this.createPurchaseLineBody());
-    console.log('purchase line ', this.createPurchaseLineBody());
+    await this.purchaseService.postNewPurchaseLine(this.data.id, this.createPurchaseLineBody());
     this.dialogRef.close();
   }
 
   public async updatePurchaseLine() {
-    // await this.purchaseService.updatePurchaseLine(this.data.id, this.createPurchaseLineBody());
-    console.log('purchase line ', this.createPurchaseLineBody());
+    await this.purchaseService.updatePurchaseLine(this.data.id, this.data.content.id, this.createPurchaseLineBody());
     this.dialogRef.close();
   }
 
   private createPurchaseLineBody() {
     return {
       item_variant_id: this.itemVariant.value.id,
-      item_price: this.data.content.price,
+      price: this.data.content.price,
       quantity: this.data.content.quantity,
-      delivered: this.data.content.delivered.id
+      delivered: this.data.content.delivered
     };
   }
 }

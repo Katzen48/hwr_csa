@@ -11,7 +11,7 @@ export class VendorService {
 
   constructor(private http: HttpClient) { }
 
-  public async getVendors() {
+  public async getAllVendors() {
     this.vendors = await this.http.get<Vendor[]>(`${environment.backendUrl}/vendor`).toPromise();
   }
 

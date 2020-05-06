@@ -12,7 +12,7 @@ export class EmployeeService {
   constructor(private http: HttpClient) {
   }
 
-  public async getEmployees() {
+  public async getAllEmployees() {
     this.employees = await this.http.get<Employee[]>(`${environment.backendUrl}/employee`).toPromise();
   }
 

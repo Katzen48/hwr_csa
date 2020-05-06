@@ -52,6 +52,7 @@ export class SaleLineComponent implements OnInit {
   }
 
   public async deleteSaleLine(id) {
-    await this.saleService.deleteSaleLine(id);
+    await this.saleService.deleteSaleLine(this.routeId, id);
+    window.location.reload();
   }
 }

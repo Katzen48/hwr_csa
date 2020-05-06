@@ -21,8 +21,8 @@ export class PurchaseService {
     return await this.http.get<PurchaseHeader>(`${environment.backendUrl}/purchaseheader/${id}`).toPromise();
   }
 
-  public async updatePurchaseHeader(id, saleHeader) {
-    await this.http.put(`${environment.backendUrl}/purchaseheader/${id}`, saleHeader).toPromise();
+  public async updatePurchaseHeader(id, purchaseHeader) {
+    await this.http.put(`${environment.backendUrl}/purchaseheader/${id}`, purchaseHeader).toPromise();
   }
 
   public async deletePurchaseHeader(id) {
@@ -37,11 +37,11 @@ export class PurchaseService {
     await this.http.post(`${environment.backendUrl}/purchaseheader/${id}/line`, purchaseLine).toPromise();
   }
 
-  public async updatePurchaseLine(id, purchaseLine) {
-    await this.http.put(`${environment.backendUrl}/purchaseheader/${id}/line`, purchaseLine).toPromise();
+  public async updatePurchaseLine(headerId, lineId, purchaseLine) {
+    await this.http.put(`${environment.backendUrl}/purchaseheader/${headerId}/line/${lineId}`, purchaseLine).toPromise();
   }
 
-  public async deletePurchaseLine(id) {
-    await this.http.delete(`${environment.backendUrl}/purchaseheader/${id}/line`).toPromise();
+  public async deletePurchaseLine(headerId, lineId) {
+    await this.http.delete(`${environment.backendUrl}/purchaseheader/${headerId}/line/${lineId}`).toPromise();
   }
 }

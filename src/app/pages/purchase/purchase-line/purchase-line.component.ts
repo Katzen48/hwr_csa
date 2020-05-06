@@ -52,6 +52,7 @@ export class PurchaseLineComponent implements OnInit {
   }
 
   public async deletePurchaseLine(id) {
-    await this.purchaseService.deletePurchaseLine(id);
+    await this.purchaseService.deletePurchaseLine(this.routeId, id);
+    window.location.reload();
   }
 }

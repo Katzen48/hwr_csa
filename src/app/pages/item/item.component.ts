@@ -13,7 +13,7 @@ export class ItemComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.itemService.getItems();
+    await this.itemService.getAllItems();
   }
 
   public async onNewItem() {

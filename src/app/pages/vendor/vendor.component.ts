@@ -14,7 +14,7 @@ export class VendorComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.vendorService.getVendors();
+    await this.vendorService.getAllVendors();
   }
 
   public async newVendor() {
