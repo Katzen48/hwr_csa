@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-@AllArgsConstructor(onConstructor_={@ConstructorProperties({"entry_no", "item_id", "item_variant_id", "item_name", "item_variant_name", "item_price", "quantity", "posting_date", "source_doc_type", "source_doc_no"})})
+@AllArgsConstructor(onConstructor_={@ConstructorProperties({"entry_no", "item_id", "item_variant_id", "item_name", "item_variant_name", "item_price", "quantity", "posting_date", "applies_to_entry", "source_doc_type", "source_doc_no"})})
 public class ItemLedgerEntry 
 {
 	private int entryNo;
@@ -35,6 +35,9 @@ public class ItemLedgerEntry
 	
 	@NonNull
 	private LocalDate postingDate;
+	
+	@NonNull
+	private int appliesToEntry;
 	
 	@NonNull
 	private SourceDocType sourceDocType;

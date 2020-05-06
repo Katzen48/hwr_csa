@@ -68,19 +68,26 @@ public class PurchaseHeaderService implements IPurchaseHeaderService
 				Item item 				= itemVariant.getItem();
 				
 				ItemLedgerEntry itemLedgerEntry = new ItemLedgerEntry(item.getId(), itemVariant.getId(), item.getName(), itemVariant.getName(), 
-													line.getPrice(), line.getQuantity(), purchaseHeader.getPostingDate(), SourceDocType.PURCHASE, purchaseHeader.getId());
+													line.getPrice(), line.getQuantity(), purchaseHeader.getPostingDate(), 0, SourceDocType.PURCHASE, purchaseHeader.getId());
 				
 				dbAdapter.createItemLedgerEntry(itemLedgerEntry);
 				
 				ValueLedgerEntry valueLedgerEntry = new ValueLedgerEntry(line.getLineAmount(), purchaseHeader.getPostingDate(), SourceDocType.PURCHASE, purchaseHeader.getId());
 				
 				dbAdapter.createValueLedgerEntry(valueLedgerEntry);
+				
+				dbAdapter.deletePurchaseLine(line);
 			});
 			
 			dbAdapter.commit();
+			
+			if(dbAdapter.listByPurchaseHeader(purchaseHeader).size() == 0)		
+				dbAdapter.deletePurchaseHeader(purchaseHeader);				
+			
 		}
 		catch(Exception e)
 		{
+			dbAdapter.rollback();
 			e.printStackTrace();
 			return false;
 		}
