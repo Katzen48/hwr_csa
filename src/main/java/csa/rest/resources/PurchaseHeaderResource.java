@@ -114,4 +114,19 @@ public class PurchaseHeaderResource
 		
 		return Response.noContent().build();
 	}
+	
+	@POST
+	@Path("{id}/post")
+	public Response postPurchaseHeader(@PathParam("id") int id)
+	{
+		PurchaseHeader purchaseHeader = purchaseHeaderService.getPurchaseHeader(id);
+		
+		if(purchaseHeader == null)
+			return Response.status(Status.NOT_FOUND).build();
+		
+		if(purchaseHeaderService.post(purchaseHeader))
+			return Response.noContent().build();
+		
+		return Response.notModified().build();
+	}
 }

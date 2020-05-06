@@ -10,13 +10,10 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-@AllArgsConstructor(onConstructor_={@ConstructorProperties({"entry_no", "employee_id", "amount", "posting_date", "source_doc_type", "source_doc_no"})})
+@AllArgsConstructor(onConstructor_={@ConstructorProperties({"entry_no", "amount", "posting_date", "source_doc_type", "source_doc_no"})})
 public class ValueLedgerEntry 
 {
 	private int entryNo;
-	
-	@NonNull
-	private int employeeId;
 	
 	@NonNull
 	private float amount;

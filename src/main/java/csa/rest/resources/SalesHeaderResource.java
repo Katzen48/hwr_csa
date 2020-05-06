@@ -116,4 +116,19 @@ public class SalesHeaderResource
 		
 		return Response.noContent().build();
 	}
+	
+	@POST
+	@Path("{id}/post")
+	public Response postSalesHeader(@PathParam("id") int id)
+	{
+		SalesHeader salesHeader = salesHeaderService.getSalesHeader(id);
+		
+		if(salesHeader == null)
+			return Response.status(Status.NOT_FOUND).build();
+		
+		if(salesHeaderService.post(salesHeader))
+			return Response.noContent().build();
+		
+		return Response.notModified().build();
+	}
 }

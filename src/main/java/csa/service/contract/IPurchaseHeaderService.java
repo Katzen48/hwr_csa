@@ -14,4 +14,5 @@ public interface IPurchaseHeaderService
 	PurchaseHeader createPurchaseHeader(PurchaseHeader purchaseHeader);
 	boolean updatePurchaseHeader(PurchaseHeader purchaseHeader);
 	boolean deletePurchaseHeader(PurchaseHeader purchaseHeader);
+	boolean post(PurchaseHeader purchaseHeader);
 }
