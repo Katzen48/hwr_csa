@@ -66,7 +66,7 @@ public class SalesHeaderService implements ISalesHeaderService
 			for(SalesLine line : salesLines)
 			{
 				List<ItemLedgerEntry> entries = dbAdapter.getStockByItemLedgerEntries();
-				Optional<ItemLedgerEntry> opt = entries.stream().filter(entry -> entry.getQuantity() >= line.getQuantity()).findFirst();
+				Optional<ItemLedgerEntry> opt = entries.stream().filter(entry -> entry.getQuantity() >= line.getQuantity() && entry.getItemVariantId() == line.getItemVariantId()).findFirst();
 				
 				if(!opt.isPresent())
 					throw new Exception();
