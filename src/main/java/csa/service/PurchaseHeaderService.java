@@ -57,8 +57,7 @@ public class PurchaseHeaderService implements IPurchaseHeaderService
 	public boolean post(PurchaseHeader purchaseHeader) {
 		List<PurchaseLine> purchaseLines = dbAdapter.listByPurchaseHeader(purchaseHeader);
 		
-		dbAdapter.beginTransaction();
-		dbAdapter.setTransactionIsolation(TransactionIsolationLevel.READ_COMMITTED);
+		dbAdapter.beginTransaction();		
 		
 		try
 		{		

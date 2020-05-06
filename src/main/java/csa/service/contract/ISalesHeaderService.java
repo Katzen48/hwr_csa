@@ -14,4 +14,5 @@ public interface ISalesHeaderService
 	SalesHeader createSalesHeader(SalesHeader salesHeader);
 	boolean updateSalesHeader(SalesHeader salesHeader);
 	boolean deleteSalesHeader(SalesHeader salesHeader);
+	boolean post(SalesHeader salesHeader);
 }
