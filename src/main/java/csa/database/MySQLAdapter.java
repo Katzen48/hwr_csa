@@ -252,7 +252,7 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public List<ItemLedgerEntry> getStockByItemLedgerEntries()
 	{
-		return handle.createQuery( "SELECT a.entry_no AS entry_no, a.item_id AS item_id, a.item_variant_id AS item_variant_id, a.item_name AS item_name, a.item_variant_name AS item_variant_name, a.item_price AS item_price, a.quantity + minusquantity AS quantity, a.posting_date AS posting_date, a.applies_to_entry AS applies_to_entry, a.source_doc_type AS source_doc_type, a.source_doc_no AS source_doc_no " + 
+		return handle.createQuery( "SELECT a.entry_no AS entry_no, a.item_id AS item_id, a.item_variant_id AS item_variant_id, a.item_name AS item_name, a.item_variant_name AS item_variant_name, a.item_price AS item_price, a.quantity + IF(minusquantity IS NULL, 0, minusquantity) AS quantity, a.posting_date AS posting_date, a.applies_to_entry AS applies_to_entry, a.source_doc_type AS source_doc_type, a.source_doc_no AS source_doc_no " + 
 									"FROM item_ledger_entry a " +
 										"LEFT JOIN ( " + 
 												"SELECT b.applies_to_entry, SUM(b.quantity) AS minusquantity " +
