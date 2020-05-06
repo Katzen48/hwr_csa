@@ -261,7 +261,8 @@ public class MySQLAdapter implements DatabaseAdapter
 												"GROUP BY applies_to_entry " +
 										") AS minus " +
 										"ON minus.applies_to_entry = entry_no " +
-									"WHERE a.applies_to_entry = 0")
+									"WHERE a.applies_to_entry = 0 " +
+									"GROUP BY item_variant_id")
 				.mapTo(ItemLedgerEntry.class)
 				.list();
 	}
