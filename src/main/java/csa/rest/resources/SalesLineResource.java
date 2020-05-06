@@ -125,6 +125,8 @@ public class SalesLineResource
 		if(variant == null)
 			return Response.status(Status.BAD_REQUEST).build();
 		
+		salesLine.setItemVariant(variant);
+		
 		if(salesLineService.updateSalesLine(salesLine))
 			return Response.noContent().build();
 		
