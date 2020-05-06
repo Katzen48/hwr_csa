@@ -37,6 +37,8 @@ export class SaleEditComponent implements OnInit {
       this.saleHeader = await this.saleService.getSaleHeaderById(this.routeId);
       this.saleFormGroup.controls.employeeId.setValue(this.saleHeader.employee.id);
       this.saleFormGroup.controls.posting_date.setValue(new Date(this.saleHeader.posting_date));
+    } else {
+      this.saleFormGroup.controls.posting_date.setValue(new Date());
     }
   }
 

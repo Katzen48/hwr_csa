@@ -36,6 +36,8 @@ export class PurchaseEditComponent implements OnInit {
       this.vendorId.setValue(purchaseHeader.vendor.id);
       this.postingDate.setValue(new Date(purchaseHeader.posting_date));
       this.deliveryDate.setValue(new Date(purchaseHeader.delivery_date));
+    } else {
+      this.postingDate.setValue(new Date());
     }
   }
 

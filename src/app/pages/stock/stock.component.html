@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="20px">
   <app-menu [currentTab]="'stocks'"></app-menu>
 
-  <div>Hier finden Sie eine aktuelle Lagerübersicht:</div>
+  <div class="heading">Hier finden Sie eine aktuelle Lagerübersicht:</div>
 
   <table mat-table [dataSource]="stockService.itemLedgerEntries">
     <ng-container matColumnDef="itemVariant">
