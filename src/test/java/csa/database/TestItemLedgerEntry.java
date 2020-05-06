@@ -80,7 +80,7 @@ public class TestItemLedgerEntry
 	{
 		generatedItemLedgerEntry = new ItemLedgerEntry(EXPECTED_ITEM_LEDGER_ENTRIES[EXPECTED_ITEM_LEDGER_ENTRIES.length - 1].getEntryNo() + 1, 1, 1, "Jens 'Gerda'", "Jeans 'Gerda' Blau Gestreift S", 79.99F, 10, LocalDate.of(2020, 04, 01), SourceDocType.PURCHASE, 2);
 		
-		assertTrue(dbAdapter.createItemLedgerEntry(generatedItemLedgerEntry));
+		assertNotNull(dbAdapter.createItemLedgerEntry(generatedItemLedgerEntry));
 	}
 	
 	@Test

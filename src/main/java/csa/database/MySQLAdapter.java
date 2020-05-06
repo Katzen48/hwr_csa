@@ -5,12 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.mapper.ColumnMapper;
 import org.jdbi.v3.core.mapper.reflect.ConstructorMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 import org.jdbi.v3.core.transaction.TransactionIsolationLevel;
+import org.jvnet.hk2.annotations.Service;
 
 import csa.model.Employee;
 import csa.model.Item;
@@ -23,10 +26,18 @@ import csa.model.SalesLine;
 import csa.model.ValueLedgerEntry;
 import csa.model.Vendor;
 
+@Service
+@Singleton
 public class MySQLAdapter implements DatabaseAdapter
 {
 	private final Jdbi jdbi;
 	private Handle handle;
+	
+	public MySQLAdapter()
+	{
+		this("rdbms.katzen48.de", "hwr_csa", "hwr_csa", "TrashCareTM");
+		connect();
+	}
 	
 	public MySQLAdapter(String host, String database, String username, String password)
 	{
@@ -127,11 +138,17 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createEmployee(Employee employee)
+	public Employee createEmployee(Employee employee)
 	{
-		return handle.createUpdate("INSERT INTO employee (`given_name`, `surname`) VALUES (:getGivenName, :getSurname)")
+		Integer id = handle.createUpdate("INSERT INTO employee (`given_name`, `surname`) VALUES (:getGivenName, :getSurname)")
 				.bindMethods(employee)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class).first();
+		
+		if(id == null)
+			return null;
+		
+		return getEmployee(id);
 	}
 
 	@Override
@@ -168,11 +185,18 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createItem(Item item)
+	public Item createItem(Item item)
 	{
-		return handle.createUpdate("INSERT INTO item (`name`) VALUES (:getName)")
+		Integer id = handle.createUpdate("INSERT INTO item (`name`) VALUES (:getName)")
 				.bindMethods(item)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class)
+				.first();
+		
+		if(id == null)
+			return null;
+		
+		return getItem(id);
 	}
 
 	@Override
@@ -209,13 +233,37 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createItemLedgerEntry(ItemLedgerEntry itemLedgerEntry)
+	public ItemLedgerEntry createItemLedgerEntry(ItemLedgerEntry itemLedgerEntry)
 	{
-		return handle.createUpdate(	"INSERT INTO item_ledger_entry (`item_id`, `item_variant_id`, `item_name`, `item_variant_name`, `item_price`, `quantity`, `posting_date`, "
+		Integer id = handle.createUpdate(	"INSERT INTO item_ledger_entry (`item_id`, `item_variant_id`, `item_name`, `item_variant_name`, `item_price`, `quantity`, `posting_date`, "
 								+ 	"`source_doc_type`, `source_doc_no`) VALUES (:getItemId, :getItemVariantId, :getItemName, :getItemVariantName, :getItemPrice, :getQuantity, "
 								+ 	":getPostingDate, :getSourceDocType, :getSourceDocNo)")
 				.bindMethods(itemLedgerEntry)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class)
+				.first();
+		
+		if(id == null)
+			return null;
+		
+		return getItemLedgerEntry(id);
+	}
+	
+	@Override
+	public List<ItemLedgerEntry> getStockByItemLedgerEntries()
+	{
+		return handle.createQuery( "SELECT a.entry_no AS entry_no, a.item_id AS item_id, a.item_variant_id AS item_variant_id, a.item_name AS item_name, a.item_variant_name AS item_variant_name, a.item_price AS item_price, a.quantity + minusquantity AS quantity, a.posting_date AS posting_date, a.source_doc_type AS source_doc_type, a.source_doc_no AS source_doc_no " + 
+									"FROM item_ledger_entry a " +
+										"LEFT JOIN ( " + 
+												"SELECT b.applies_to_entry, SUM(b.quantity) AS minusquantity " +
+												"FROM item_ledger_entry b " +
+												"WHERE b.applies_to_entry IS NOT NULL " +
+												"GROUP BY applies_to_entry " +
+										") AS minus " +
+										"ON minus.applies_to_entry = entry_no " +
+									"WHERE a.applies_to_entry IS NULL")
+				.mapTo(ItemLedgerEntry.class)
+				.list();
 	}
 
 	@Override
@@ -245,11 +293,18 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createItemVariant(ItemVariant itemVariant)
+	public ItemVariant createItemVariant(ItemVariant itemVariant)
 	{
-		return handle.createUpdate("INSERT INTO item_variant (`item_id`, `name`, `price`, `size`) VALUES (:getItemId, :getName, :getPrice, :getSize)")
+		Integer id = handle.createUpdate("INSERT INTO item_variant (`item_id`, `name`, `price`, `size`) VALUES (:getItemId, :getName, :getPrice, :getSize)")
 				.bindMethods(itemVariant)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class)
+				.first();
+		
+		if(id == null)
+			return null;
+		
+		return getItemVariant(id);
 	}
 
 	@Override
@@ -266,6 +321,14 @@ public class MySQLAdapter implements DatabaseAdapter
 		return handle.createUpdate("DELETE FROM item_variant WHERE `id` = :getId")
 				.bindMethods(itemVariant)
 				.execute() == 1;
+	}
+	
+	@Override
+	public List<ItemVariant> searchItemVariantByName(String query)
+	{
+		return handle.createQuery(String.format("SELECT * FROM item_variant WHERE LOWER(`name`) LIKE LOWER('%%%s%%')", query))
+				.mapTo(ItemVariant.class)
+				.list();
 	}
 
 	@Override
@@ -286,11 +349,18 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createPurchaseHeader(PurchaseHeader purchaseHeader)
+	public PurchaseHeader createPurchaseHeader(PurchaseHeader purchaseHeader)
 	{
-		return handle.createUpdate("INSERT INTO purchase_header (`vendor_id`, `posting_date`, `delivery_date`) VALUES (:getVendorId, :getPostingDate, :getDeliveryDate)")
+		Integer id = handle.createUpdate("INSERT INTO purchase_header (`vendor_id`, `posting_date`, `delivery_date`) VALUES (:getVendorId, :getPostingDate, :getDeliveryDate)")
 				.bindMethods(purchaseHeader)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class)
+				.first();
+		
+		if(id == null)
+			return null;
+		
+		return getPurchaseHeader(id);
 	}
 
 	@Override
@@ -336,12 +406,19 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createPurchaseLine(PurchaseLine purchaseLine)
+	public PurchaseLine createPurchaseLine(PurchaseLine purchaseLine)
 	{
-		return handle.createUpdate(	"INSERT INTO purchase_line (`purchase_header_id`, `item_variant_id`, `price`, `quantity`, `line_amount`, `delivered`) "
+		Integer id = handle.createUpdate(	"INSERT INTO purchase_line (`purchase_header_id`, `item_variant_id`, `price`, `quantity`, `line_amount`, `delivered`) "
 								+ 	"VALUES (:getPurchaseHeaderId, :getItemVariantId, :getPrice, :getQuantity, :getLineAmount, :isDelivered)")
 				.bindMethods(purchaseLine)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class)
+				.first();
+		
+		if(id == null)
+			return null;
+		
+		return getPurchaseLine(id);
 	}
 
 	@Override
@@ -356,7 +433,7 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public boolean deletePurchaseLine(PurchaseLine purchaseLine)
 	{
-		return handle.createUpdate("DELETE FRPM purchase_line WHERE `id` = :getId")
+		return handle.createUpdate("DELETE FROM purchase_line WHERE `id` = :getId")
 				.bindMethods(purchaseLine)
 				.execute() == 1;
 	}
@@ -379,17 +456,24 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createSalesHeader(SalesHeader salesHeader)
+	public SalesHeader createSalesHeader(SalesHeader salesHeader)
 	{
-		return handle.createUpdate("INSERT INTO sales_header (`employee_id`, `posting_date`) VALUES (:getEmployeeId, :getPostingDate)")
+		Integer id = handle.createUpdate("INSERT INTO sales_header (`employee_id`, `posting_date`) VALUES (:getEmployeeId, :getPostingDate)")
 				.bindMethods(salesHeader)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class)
+				.first();
+		
+		if(id == null)
+			return null;
+		
+		return getSalesHeader(id);
 	}
 
 	@Override
 	public boolean updateSalesHeader(SalesHeader salesHeader)
 	{
-		return handle.createUpdate("UPDATE sales_header SET `employee_id` = :getEmployeeId, `posting_date` = :getPostingDate")
+		return handle.createUpdate("UPDATE sales_header SET `employee_id` = :getEmployeeId, `posting_date` = :getPostingDate WHERE `id` = :getId")
 				.bindMethods(salesHeader)
 				.execute() == 1;
 	}
@@ -413,7 +497,7 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public List<SalesLine> listBySalesHeader(SalesHeader salesHeader)
 	{
-		return handle.createQuery("SELECT * FROM sales_header WHERE `sales_header_id` = :getId")
+		return handle.createQuery("SELECT * FROM sales_line WHERE `sales_header_id` = :getId")
 				.bindMethods(salesHeader)
 				.mapTo(SalesLine.class)
 				.list();
@@ -429,12 +513,19 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createSalesLine(SalesLine salesLine)
+	public SalesLine createSalesLine(SalesLine salesLine)
 	{
-		return handle.createUpdate(	"INSERT INTO sales_line (`sales_header_id`, `item_variant_id`, `item_price`, `quantity`, `line_amount`) "
+		Integer id = handle.createUpdate(	"INSERT INTO sales_line (`sales_header_id`, `item_variant_id`, `item_price`, `quantity`, `line_amount`) "
 								+ 	"VALUES (:getSalesHeaderId, :getItemVariantId, :getItemPrice, :getQuantity, :getLineAmount)")
 				.bindMethods(salesLine)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class)
+				.first();
+		
+		if(id == null)
+			return null;
+		
+		return getSalesLine(id);
 	}
 
 	@Override
@@ -472,12 +563,19 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createValueLedgerEntry(ValueLedgerEntry valueLedgerEntry)
+	public ValueLedgerEntry createValueLedgerEntry(ValueLedgerEntry valueLedgerEntry)
 	{
-		return handle.createUpdate("INSERT INTO value_ledger_entry (`employee_id`, `amount`, `posting_date`, `source_doc_type`, `source_doc_no`) "
+		Integer id = handle.createUpdate("INSERT INTO value_ledger_entry (`employee_id`, `amount`, `posting_date`, `source_doc_type`, `source_doc_no`) "
 				+ "VALUES (:getEmployeeId, :getAmount, :getPostingDate, :getSourceDocType, :getSourceDocNo)")
 				.bindMethods(valueLedgerEntry)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class)
+				.first();
+		
+		if(id == null)
+			return null;
+		
+		return getValueLedgerEntry(id);
 	}
 
 	@Override
@@ -498,11 +596,18 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public boolean createVendor(Vendor vendor)
+	public Vendor createVendor(Vendor vendor)
 	{
-		return handle.createUpdate("INSERT INTO vendor (`name`, `address`, `post_code`, `city`, `country`) VALUES (:getName, :getAddress, :getPostCode, :getCity, :getCountry)")
+		Integer id = handle.createUpdate("INSERT INTO vendor (`name`, `address`, `post_code`, `city`, `country`) VALUES (:getName, :getAddress, :getPostCode, :getCity, :getCountry)")
 				.bindMethods(vendor)
-				.execute() == 1;
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(int.class)
+				.first();
+		
+		if(id == null)
+			return null;
+		
+		return getVendor(id);
 	}
 
 	@Override

@@ -78,7 +78,7 @@ public class TestItem
 	{
 		generatedItem = new Item(EXPECTED_ITEMS[EXPECTED_ITEMS.length - 1].getId() + 1, "Pocky");
 		
-		assertTrue(dbAdapter.createItem(generatedItem));
+		assertNotNull(dbAdapter.createItem(generatedItem));
 	}
 	
 	@Test

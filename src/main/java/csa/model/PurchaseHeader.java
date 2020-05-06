@@ -3,12 +3,19 @@ package csa.model;
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(value={"id", "vendor"}, allowGetters=true)
 public class PurchaseHeader 
 {
 	private int id;
@@ -16,10 +23,17 @@ public class PurchaseHeader
 	@NonNull
 	private Vendor vendor;
 	@NonNull
+	@JsonProperty("posting_date")
 	private LocalDate postingDate;
 	@NonNull
+	@JsonProperty("delivery_date")
 	private LocalDate deliveryDate;
 	
+	// Only for JSON deserialization
+	@JsonIgnoreProperties(allowSetters=true)
+	private int vendor_id;
+	
+	@JsonCreator(mode=Mode.DISABLED)
 	@ConstructorProperties({"id", "vendor_id", "posting_date", "delivery_date"})
 	public PurchaseHeader(int id, @NonNull Vendor vendor, @NonNull LocalDate postingDate, @NonNull LocalDate deliveryDate)
 	{
@@ -29,6 +43,7 @@ public class PurchaseHeader
 		this.deliveryDate = deliveryDate;
 	}
 	
+	@JsonIgnore
 	public int getVendorId()
 	{
 		return vendor.getId();

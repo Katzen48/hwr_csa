@@ -3,6 +3,7 @@ package csa.database;
 import java.io.Closeable;
 import java.util.List;
 
+import org.glassfish.jersey.spi.Contract;
 import org.jdbi.v3.core.transaction.TransactionIsolationLevel;
 
 import csa.model.Employee;
@@ -16,6 +17,7 @@ import csa.model.SalesLine;
 import csa.model.ValueLedgerEntry;
 import csa.model.Vendor;
 
+@Contract
 public interface DatabaseAdapter extends Closeable
 {
 	// Connection
@@ -24,34 +26,36 @@ public interface DatabaseAdapter extends Closeable
 	// Employee
 	List<Employee> listEmployees();
 	Employee getEmployee(int id);
-	boolean createEmployee(Employee employee);
+	Employee createEmployee(Employee employee);
 	boolean updateEmployee(Employee employee);
 	boolean deleteEmployee(Employee employee);
 	
 	// Item
 	List<Item> listItems();
 	Item getItem(int id);
-	boolean createItem(Item item);
+	Item createItem(Item item);
 	boolean updateItem(Item item);
-	boolean deleteItem(Item employee);
+	boolean deleteItem(Item item);
 	
 	// Item Ledger Entry
 	List<ItemLedgerEntry> listItemLedgerEntries();
 	ItemLedgerEntry getItemLedgerEntry(int entryNo);
-	boolean createItemLedgerEntry(ItemLedgerEntry itemLedgerEntry);
+	ItemLedgerEntry createItemLedgerEntry(ItemLedgerEntry itemLedgerEntry);
+	List<ItemLedgerEntry> getStockByItemLedgerEntries();
 	
 	// Item Variant
 	List<ItemVariant> listItemVariants();
 	List<ItemVariant> listByItem(Item item);
 	ItemVariant getItemVariant(int id);
-	boolean createItemVariant(ItemVariant itemVariant);
+	ItemVariant createItemVariant(ItemVariant itemVariant);
 	boolean updateItemVariant(ItemVariant itemVariant);
 	boolean deleteItemVariant(ItemVariant itemVariant);
+	List<ItemVariant> searchItemVariantByName(String query);
 	
 	// Purchase Header
 	List<PurchaseHeader> listPurchaseHeaders();
 	PurchaseHeader getPurchaseHeader(int id);
-	boolean createPurchaseHeader(PurchaseHeader purchaseHeader);
+	PurchaseHeader createPurchaseHeader(PurchaseHeader purchaseHeader);
 	boolean updatePurchaseHeader(PurchaseHeader purchaseHeader);
 	boolean deletePurchaseHeader(PurchaseHeader purchaseHeader);
 	
@@ -59,14 +63,14 @@ public interface DatabaseAdapter extends Closeable
 	List<PurchaseLine> listPurchaseLines();
 	List<PurchaseLine> listByPurchaseHeader(PurchaseHeader purchaseHeader);
 	PurchaseLine getPurchaseLine(int id);
-	boolean createPurchaseLine(PurchaseLine purchaseLine);
+	PurchaseLine createPurchaseLine(PurchaseLine purchaseLine);
 	boolean updatePurchaseLine(PurchaseLine purchaseLine);
 	boolean deletePurchaseLine(PurchaseLine purchaseLine);
 	
 	// Sales Header
 	List<SalesHeader> listSalesHeaders();
 	SalesHeader getSalesHeader(int id);
-	boolean createSalesHeader(SalesHeader salesHeader);
+	SalesHeader createSalesHeader(SalesHeader salesHeader);
 	boolean updateSalesHeader(SalesHeader salesHeader);
 	boolean deleteSalesHeader(SalesHeader salesHeader);
 	
@@ -74,19 +78,19 @@ public interface DatabaseAdapter extends Closeable
 	List<SalesLine> listSalesLines();
 	List<SalesLine> listBySalesHeader(SalesHeader salesHeader);
 	SalesLine getSalesLine(int id);
-	boolean createSalesLine(SalesLine salesLine);
+	SalesLine createSalesLine(SalesLine salesLine);
 	boolean updateSalesLine(SalesLine salesLine);
 	boolean deleteSalesLine(SalesLine salesLine);
 	
 	// Value Ledger Entry
 	List<ValueLedgerEntry> listValueLedgerEntries();
 	ValueLedgerEntry getValueLedgerEntry(int id);
-	boolean createValueLedgerEntry(ValueLedgerEntry valueLedgerEntry);
+	ValueLedgerEntry createValueLedgerEntry(ValueLedgerEntry valueLedgerEntry);
 	
 	// Vendor
 	List<Vendor> listVendors();
 	Vendor getVendor(int id);
-	boolean createVendor(Vendor vendor);
+	Vendor createVendor(Vendor vendor);
 	boolean updateVendor(Vendor vendor);
 	boolean deleteVendor(Vendor vendor);
 	

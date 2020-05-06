@@ -74,7 +74,7 @@ public class TestItemVariant
 	{
 		generatedItemVariant = new ItemVariant(EXPECTED_ITEM_VARIANTS[EXPECTED_ITEM_VARIANTS.length - 1].getId() + 1, new Item(1, "Jeans 'Gerda'"), "Jeans 'Gerda' Blau Gestreift M", 79.99F, "M");
 		
-		assertTrue(dbAdapter.createItemVariant(generatedItemVariant));
+		assertNotNull(dbAdapter.createItemVariant(generatedItemVariant));
 	}
 	
 	@Test
