@@ -416,7 +416,7 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public boolean deletePurchaseLine(PurchaseLine purchaseLine)
 	{
-		return handle.createUpdate("DELETE FRPM purchase_line WHERE `id` = :getId")
+		return handle.createUpdate("DELETE FROM purchase_line WHERE `id` = :getId")
 				.bindMethods(purchaseLine)
 				.execute() == 1;
 	}
