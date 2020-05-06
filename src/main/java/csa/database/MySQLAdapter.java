@@ -235,18 +235,18 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public ItemLedgerEntry createItemLedgerEntry(ItemLedgerEntry itemLedgerEntry)
 	{
-		Integer id = handle.createUpdate(	"INSERT INTO item_ledger_entry (`item_id`, `item_variant_id`, `item_name`, `item_variant_name`, `item_price`, `quantity`, `posting_date`, "
+		Integer entryNo = handle.createUpdate(	"INSERT INTO item_ledger_entry (`item_id`, `item_variant_id`, `item_name`, `item_variant_name`, `item_price`, `quantity`, `posting_date`, "
 								+ 	"`source_doc_type`, `source_doc_no`) VALUES (:getItemId, :getItemVariantId, :getItemName, :getItemVariantName, :getItemPrice, :getQuantity, "
 								+ 	":getPostingDate, :getSourceDocType, :getSourceDocNo)")
 				.bindMethods(itemLedgerEntry)
-				.executeAndReturnGeneratedKeys("id")
+				.executeAndReturnGeneratedKeys("entry_no")
 				.mapTo(int.class)
 				.first();
 		
-		if(id == null)
+		if(entryNo == null)
 			return null;
 		
-		return getItemLedgerEntry(id);
+		return getItemLedgerEntry(entryNo);
 	}
 	
 	@Override
@@ -554,10 +554,10 @@ public class MySQLAdapter implements DatabaseAdapter
 	}
 
 	@Override
-	public ValueLedgerEntry getValueLedgerEntry(int id)
+	public ValueLedgerEntry getValueLedgerEntry(int entryNo)
 	{
-		return handle.createQuery("SELECT * FROM value_ledger_entry WHERE `id` = :id")
-				.bind("id", id)
+		return handle.createQuery("SELECT * FROM value_ledger_entry WHERE `entry_no` = :entryNo")
+				.bind("entryNo", entryNo)
 				.mapTo(ValueLedgerEntry.class)
 				.one();
 	}
@@ -565,17 +565,17 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public ValueLedgerEntry createValueLedgerEntry(ValueLedgerEntry valueLedgerEntry)
 	{
-		Integer id = handle.createUpdate("INSERT INTO value_ledger_entry (`amount`, `posting_date`, `source_doc_type`, `source_doc_no`) "
+		Integer entryNo = handle.createUpdate("INSERT INTO value_ledger_entry (`amount`, `posting_date`, `source_doc_type`, `source_doc_no`) "
 				+ "VALUES (:getAmount, :getPostingDate, :getSourceDocType, :getSourceDocNo)")
 				.bindMethods(valueLedgerEntry)
 				.executeAndReturnGeneratedKeys("id")
 				.mapTo(int.class)
 				.first();
 		
-		if(id == null)
+		if(entryNo == null)
 			return null;
 		
-		return getValueLedgerEntry(id);
+		return getValueLedgerEntry(entryNo);
 	}
 
 	@Override
