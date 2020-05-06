@@ -56,8 +56,12 @@ export class PurchaseLineComponent implements OnInit {
     window.location.reload();
   }
 
-  public async onBookPurchase() {
-    console.log('book purchase');
+  public async onPostPurchase() {
+    await this.purchaseService.postPurchaseLines(this.routeId);
     await this.router.navigate(['purchases']);
+  }
+
+  public displayPrice(price) {
+    return price.toFixed(2);
   }
 }

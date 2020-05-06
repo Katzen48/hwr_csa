@@ -44,4 +44,8 @@ export class SaleService {
   public async deleteSaleLine(headerId, lineId) {
     await this.http.delete(`${environment.backendUrl}/salesheader/${headerId}/line/${lineId}`).toPromise();
   }
+
+  public async postSaleLines(id) {
+    return await this.http.post(`${environment.backendUrl}/salesheader/${id}/post`, null, {observe: 'response'}).toPromise();
+  }
 }

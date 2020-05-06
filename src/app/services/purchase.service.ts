@@ -49,4 +49,8 @@ export class PurchaseService {
   public async deletePurchaseLine(headerId, lineId) {
     await this.http.delete(`${environment.backendUrl}/purchaseheader/${headerId}/line/${lineId}`).toPromise();
   }
+
+  public async postPurchaseLines(id) {
+    await this.http.post(`${environment.backendUrl}/purchaseheader/${id}/post`, null).toPromise();
+  }
 }

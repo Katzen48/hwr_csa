@@ -6,23 +6,22 @@
   <table mat-table [dataSource]="purchaseService.purchaseLines">
     <ng-container matColumnDef="itemVariant">
       <th mat-header-cell *matHeaderCellDef>Artikelvariante</th>
-      <td mat-cell *matCellDef="let element"> {{element.itemVariant.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.itemVariant.name }} </td>
     </ng-container>
 
-    <!-- TODO rework number format -->
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef>Preis in €</th>
-      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      <td mat-cell *matCellDef="let element"> {{ displayPrice(element.price) }} </td>
     </ng-container>
 
     <ng-container matColumnDef="quantity">
       <th mat-header-cell *matHeaderCellDef>Menge</th>
-      <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.quantity }} </td>
     </ng-container>
 
     <ng-container matColumnDef="lineAmount">
       <th mat-header-cell *matHeaderCellDef>Zeilenbetrag</th>
-      <td mat-cell *matCellDef="let element"> {{element.lineAmount}} </td>
+      <td mat-cell *matCellDef="let element"> {{ displayPrice(element.lineAmount) }} </td>
     </ng-container>
 
     <ng-container matColumnDef="delivered">
@@ -47,7 +46,7 @@
 
   <div fxLayout="row" fxLayoutGap="20px">
     <button mat-flat-button class="colored-btn" (click)="newPurchaseLine()">Neue Einkauszeile erstellen</button>
-    <button mat-flat-button class="colored-btn" (click)="onBookPurchase()">Bestellung buchen</button>
+    <button mat-flat-button class="colored-btn" (click)="onPostPurchase()">Bestellung buchen</button>
     <button mat-raised-button (click)="onBack()">Zurück</button>
   </div>
 

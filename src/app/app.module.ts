@@ -33,6 +33,7 @@ import { PurchaseLineEditComponent } from './pages/purchase/purchase-line-edit/p
 import { MatRadioModule } from '@angular/material/radio';
 import { StockComponent } from './pages/stock/stock.component';
 import { PurchaseEditComponent } from './pages/purchase/purchase-edit/purchase-edit.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { PurchaseEditComponent } from './pages/purchase/purchase-edit/purchase-e
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

@@ -33,6 +33,10 @@ export class SaleLineEditComponent implements OnInit {
     this.item.valueChanges.subscribe(async () => {
       this.itemVariants = await this.itemService.getItemVariantsById(this.item.value.id);
     });
+
+    this.itemVariant.valueChanges.subscribe(itemVariant => {
+      this.data.content.itemPrice = itemVariant.price;
+    });
   }
 
   public async postNewSaleLine() {
