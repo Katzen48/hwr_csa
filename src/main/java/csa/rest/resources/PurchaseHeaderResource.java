@@ -82,14 +82,16 @@ public class PurchaseHeaderResource
 	}
 	
 	@PUT
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updatePurchaseHeader(PurchaseHeader purchaseHeader)
+	public Response updatePurchaseHeader(@PathParam("id") int id, PurchaseHeader purchaseHeader)
 	{
 		Vendor vendor = vendorService.getVendor(purchaseHeader.getVendor_id());
 		
 		if(vendor == null)
 			return Response.status(Status.BAD_REQUEST).build();
 		
+		purchaseHeader.setId(id);
 		purchaseHeader.setVendor(vendor);
 		
 		if(purchaseHeaderService.updatePurchaseHeader(purchaseHeader))

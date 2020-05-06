@@ -35,6 +35,9 @@ public class PurchaseLine
 	@NonNull
 	private boolean delivered;
 	
+	@JsonIgnoreProperties(allowSetters=true)
+	private int item_variant_id;
+	
 	@JsonCreator
 	public PurchaseLine(@JsonProperty("price") float price, @JsonProperty("quantity") int quantity, @JsonProperty("delivered") boolean delivered) 
 	{

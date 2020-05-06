@@ -19,9 +19,11 @@ import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.spi.Contract;
 
+import csa.model.ItemVariant;
 import csa.model.PurchaseHeader;
 import csa.model.PurchaseLine;
 import csa.rest.server.RestServer;
+import csa.service.contract.IItemVariantService;
 import csa.service.contract.IPurchaseHeaderService;
 import csa.service.contract.IPurchaseLineService;
 
@@ -35,6 +37,9 @@ public class PurchaseLineResource
 	
 	@Inject
 	private IPurchaseLineService purchaseLineService;
+	
+	@Inject
+	private IItemVariantService itemVariantService;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -79,6 +84,14 @@ public class PurchaseLineResource
 			if(purchaseHeader == null)
 				return Response.status(Status.NOT_FOUND).build();
 			
+			ItemVariant variant = itemVariantService.getItemVariant(purchaseLine.getItem_variant_id());
+			
+			if(variant == null)
+				return Response.status(Status.BAD_REQUEST).build();
+			
+			purchaseLine.setPurchaseHeader(purchaseHeader);
+			purchaseLine.setItemVariant(variant);
+			
 			PurchaseLine result = purchaseLineService.createPurchaseLine(purchaseLine);
 			
 			if(result != null)
@@ -95,13 +108,24 @@ public class PurchaseLineResource
 	}
 	
 	@PUT
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updatePurchaseLine(@PathParam("purchaseheader") int purchaseHeaderId, PurchaseLine purchaseLine)
+	public Response updatePurchaseLine(@PathParam("purchaseheader") int purchaseHeaderId, @PathParam("id") int lineId, PurchaseLine purchaseLine)
 	{
 		PurchaseHeader purchaseHeader = purchaseHeaderService.getPurchaseHeader(purchaseHeaderId);
 		
 		if(purchaseHeader == null)
 			return Response.status(Status.NOT_FOUND).build();
+		
+		purchaseLine.setId(lineId);
+		purchaseLine.setPurchaseHeader(purchaseHeader);
+		
+		ItemVariant variant = itemVariantService.getItemVariant(purchaseLine.getItem_variant_id());
+		
+		if(variant == null)
+			return Response.status(Status.BAD_REQUEST).build();
+		
+		purchaseLine.setItemVariant(variant);
 		
 		if(purchaseLineService.updatePurchaseLine(purchaseLine))
 			return Response.noContent().build();

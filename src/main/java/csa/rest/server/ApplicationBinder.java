@@ -21,7 +21,7 @@ public class ApplicationBinder extends AbstractBinder
 		bind(ItemService.class).to(IItemService.class);
 		bind(ItemVariantService.class).to(IItemVariantService.class);
 		bind(PurchaseHeaderService.class).to(IPurchaseHeaderService.class);
-		bind(PurchaseLineService.class).to(IPurchaseHeaderService.class);
+		bind(PurchaseLineService.class).to(IPurchaseLineService.class);
 		bind(SalesHeaderService.class).to(ISalesHeaderService.class);
 		bind(SalesLineService.class).to(ISalesLineService.class);
 		bind(ValueLedgerEntryService.class).to(IValueLedgerEntryService.class);
