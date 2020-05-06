@@ -565,8 +565,8 @@ public class MySQLAdapter implements DatabaseAdapter
 	@Override
 	public ValueLedgerEntry createValueLedgerEntry(ValueLedgerEntry valueLedgerEntry)
 	{
-		Integer id = handle.createUpdate("INSERT INTO value_ledger_entry (`employee_id`, `amount`, `posting_date`, `source_doc_type`, `source_doc_no`) "
-				+ "VALUES (:getEmployeeId, :getAmount, :getPostingDate, :getSourceDocType, :getSourceDocNo)")
+		Integer id = handle.createUpdate("INSERT INTO value_ledger_entry (`amount`, `posting_date`, `source_doc_type`, `source_doc_no`) "
+				+ "VALUES (:getAmount, :getPostingDate, :getSourceDocType, :getSourceDocNo)")
 				.bindMethods(valueLedgerEntry)
 				.executeAndReturnGeneratedKeys("id")
 				.mapTo(int.class)
