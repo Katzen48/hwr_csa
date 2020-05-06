@@ -26,7 +26,7 @@ export class PurchaseLineComponent implements OnInit {
   }
 
   public async onBack() {
-    await this.router.navigate([`sales/${this.routeId}`]);
+    await this.router.navigate([`purchases/${this.routeId}`]);
   }
 
   public newPurchaseLine() {

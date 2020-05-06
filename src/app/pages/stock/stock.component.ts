@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StockService } from '../../services/stock.service';
 
 @Component({
   selector: 'app-stock',
@@ -6,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stock.component.css']
 })
 export class StockComponent implements OnInit {
-  public displayedColumns = ['itemVariant', 'quantity', 'price', 'lineAmount'];
-  public total = 23;
+  public displayedColumns = ['itemVariant', 'quantity'];
 
-  constructor() { }
+  constructor(public stockService: StockService) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.stockService.getItemLedgerEntries();
   }
 
 }

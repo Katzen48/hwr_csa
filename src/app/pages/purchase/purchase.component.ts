@@ -48,7 +48,8 @@ export class PurchaseComponent implements OnInit {
   }
 
   public async updatePurchaseHeader() {
-    // TODO implement methode
+    await this.purchaseService.updatePurchaseHeader(this.routeId, this.createPurchaseHeaderBody());
+    await this.router.navigate([`purchases/${this.routeId}/lines`]);
   }
 
   public async deletePurchaseHeader() {
