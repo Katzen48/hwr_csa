@@ -108,13 +108,17 @@ public class SalesLineResource
 	}
 	
 	@PUT
+	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateSalesLine(@PathParam("salesheader") int salesHeaderId, SalesLine salesLine)
+	public Response updateSalesLine(@PathParam("salesheader") int salesHeaderId, @PathParam("id") int salesLineId, SalesLine salesLine)
 	{
 		SalesHeader salesHeader = salesHeaderService.getSalesHeader(salesHeaderId);
 		
 		if(salesHeader == null)
 			return Response.status(Status.NOT_FOUND).build();
+		
+		salesLine.setId(salesLineId);
+		salesLine.setSalesHeader(salesHeader);
 		
 		if(salesLineService.updateSalesLine(salesLine))
 			return Response.noContent().build();
