@@ -32,6 +32,7 @@ import { PurchaseLineComponent } from './pages/purchase/purchase-line/purchase-l
 import { PurchaseLineEditComponent } from './pages/purchase/purchase-line-edit/purchase-line-edit.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { StockComponent } from './pages/stock/stock.component';
+import { PurchaseEditComponent } from './pages/purchase/purchase-edit/purchase-edit.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { StockComponent } from './pages/stock/stock.component';
     PurchaseComponent,
     PurchaseLineComponent,
     PurchaseLineEditComponent,
-    StockComponent
+    StockComponent,
+    PurchaseEditComponent
   ],
   imports: [
     BrowserModule,

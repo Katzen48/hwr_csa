@@ -30,6 +30,7 @@ export class PurchaseLineEditComponent implements OnInit {
   async ngOnInit() {
     if (!this.data.content) {
       this.data.content = new PurchaseLine();
+      this.data.content.delivered = false;
     } else {
       this.itemVariant.setValue(this.data.content.itemVariant);
     }

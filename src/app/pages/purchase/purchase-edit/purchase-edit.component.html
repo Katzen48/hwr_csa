@@ -1,0 +1,44 @@
+<div fxLayout="column" fxLayoutGap="20px">
+  <app-menu [currentTab]="'purchases'"></app-menu>
+
+  <div class="heading">Einkaufskopf</div>
+
+  <mat-form-field appearance="fill" class="long-form-field">
+    <mat-label>Lieferant</mat-label>
+    <mat-select [formControl]="vendorId">
+      <mat-option *ngFor="let vendor of vendorService.vendors" [value]="vendor.id">
+        {{ vendor.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="long-form-field">
+    <mat-label>Buchungsdatum</mat-label>
+    <input matInput [matDatepicker]="pickerPosting" [formControl]="postingDate">
+    <mat-datepicker-toggle matSuffix [for]="pickerPosting"></mat-datepicker-toggle>
+    <mat-datepicker #pickerPosting></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="long-form-field">
+    <mat-label>Lieferdatum</mat-label>
+    <input matInput [matDatepicker]="pickerDelivery" [formControl]="deliveryDate">
+    <mat-datepicker-toggle matSuffix [for]="pickerDelivery"></mat-datepicker-toggle>
+    <mat-datepicker #pickerDelivery></mat-datepicker>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutGap="20px">
+    <button mat-flat-button
+            class="colored-btn"
+            *ngIf="!routeId"
+            (click)="postNewPurchaseHeader()">Speichern
+    </button>
+    <button mat-flat-button
+            class="colored-btn"
+            *ngIf="routeId"
+            (click)="updatePurchaseHeader()">Änderungen speichern
+    </button>
+    <button mat-raised-button *ngIf="routeId" (click)="deletePurchaseHeader()">Löschen</button>
+    <button mat-raised-button (click)="onCancel()">Abbrechen</button>
+  </div>
+
+</div>

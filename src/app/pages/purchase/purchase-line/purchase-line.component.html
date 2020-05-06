@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="20px">
   <app-menu [currentTab]="'purchases'"></app-menu>
 
-  <div class="heading">2. Einkaufszeilen hinzufügen</div>
+  <div class="heading">Einkaufszeilen</div>
 
   <table mat-table [dataSource]="purchaseService.purchaseLines">
     <ng-container matColumnDef="itemVariant">
@@ -47,6 +47,7 @@
 
   <div fxLayout="row" fxLayoutGap="20px">
     <button mat-flat-button class="colored-btn" (click)="newPurchaseLine()">Neue Einkauszeile erstellen</button>
+    <button mat-flat-button class="colored-btn" (click)="onBookPurchase()">Bestellung buchen</button>
     <button mat-raised-button (click)="onBack()">Zurück</button>
   </div>
 

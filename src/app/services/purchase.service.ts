@@ -8,9 +8,14 @@ import { PurchaseHeader } from '../models/purchaseHeader';
   providedIn: 'root'
 })
 export class PurchaseService {
-  purchaseLines: PurchaseLine[];
+  public purchaseHeaders: PurchaseHeader[];
+  public purchaseLines: PurchaseLine[];
 
   constructor(private http: HttpClient) {
+  }
+
+  public async getAllPurchaseHeader() {
+    this.purchaseHeaders = await this.http.get<PurchaseHeader[]>(`${environment.backendUrl}/purchaseheader`).toPromise();
   }
 
   public async postNewPurchaseHeader(purchaseHeader) {

@@ -26,7 +26,7 @@ export class PurchaseLineComponent implements OnInit {
   }
 
   public async onBack() {
-    await this.router.navigate([`purchases/${this.routeId}`]);
+    await this.router.navigate([`purchases`]);
   }
 
   public newPurchaseLine() {
@@ -54,5 +54,10 @@ export class PurchaseLineComponent implements OnInit {
   public async deletePurchaseLine(id) {
     await this.purchaseService.deletePurchaseLine(this.routeId, id);
     window.location.reload();
+  }
+
+  public async onBookPurchase() {
+    console.log('book purchase');
+    await this.router.navigate(['purchases']);
   }
 }
