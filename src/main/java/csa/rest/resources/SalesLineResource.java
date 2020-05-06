@@ -120,6 +120,11 @@ public class SalesLineResource
 		salesLine.setId(salesLineId);
 		salesLine.setSalesHeader(salesHeader);
 		
+		ItemVariant variant = itemVariantService.getItemVariant(salesLine.getItem_variant_id());
+		
+		if(variant == null)
+			return Response.status(Status.BAD_REQUEST).build();
+		
 		if(salesLineService.updateSalesLine(salesLine))
 			return Response.noContent().build();
 		
