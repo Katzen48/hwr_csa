@@ -12,4 +12,5 @@ public interface IItemLedgerEntryService
 	List<ItemLedgerEntry> listItemLedgerEntries();
 	ItemLedgerEntry getItemLedgerEntry(int entryNo);
 	ItemLedgerEntry createItemLedgerEntry(ItemLedgerEntry itemLedgerEntry);
+	List<ItemLedgerEntry> getStock();
 }

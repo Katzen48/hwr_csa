@@ -41,6 +41,7 @@ public interface DatabaseAdapter extends Closeable
 	List<ItemLedgerEntry> listItemLedgerEntries();
 	ItemLedgerEntry getItemLedgerEntry(int entryNo);
 	ItemLedgerEntry createItemLedgerEntry(ItemLedgerEntry itemLedgerEntry);
+	List<ItemLedgerEntry> getStockByItemLedgerEntries();
 	
 	// Item Variant
 	List<ItemVariant> listItemVariants();

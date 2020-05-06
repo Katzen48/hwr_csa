@@ -39,4 +39,12 @@ public class ItemLedgerEntryResource
 	{
 		return itemLedgerEntryService.getItemLedgerEntry(entryNo);
 	}
+	
+	@GET
+	@Path("stock")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ItemLedgerEntry> getStock()
+	{
+		return itemLedgerEntryService.getStock();
+	}
 }

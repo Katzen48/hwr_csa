@@ -33,4 +33,10 @@ public class ItemLedgerEntryService implements IItemLedgerEntryService
 	{
 		return dbAdapter.createItemLedgerEntry(itemLedgerEntry);
 	}
+
+	@Override
+	public List<ItemLedgerEntry> getStock()
+	{
+		return dbAdapter.getStockByItemLedgerEntries();
+	}
 }
