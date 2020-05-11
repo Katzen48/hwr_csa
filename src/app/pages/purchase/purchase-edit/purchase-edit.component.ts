@@ -66,8 +66,8 @@ export class PurchaseEditComponent implements OnInit {
   private createPurchaseHeaderBody() {
     return {
       vendor_id: this.vendorId.value,
-      posting_date: moment(this.postingDate.value).add(1, 'day'),
-      delivery_date: moment(this.deliveryDate.value).add(1, 'day')
+      posting_date: moment(this.postingDate.value).add(2, 'hours'),
+      delivery_date: moment(this.deliveryDate.value).add(2, 'hours')
     };
   }
 }

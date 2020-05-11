@@ -33,7 +33,7 @@ export class VendorEditComponent implements OnInit {
       this.vendor = await this.vendorService.getVendorById(this.routeId);
       this.vendorFormGroup.controls.name.setValue(this.vendor.name);
       this.vendorFormGroup.controls.address.setValue(this.vendor.address);
-      this.vendorFormGroup.controls.postCode.setValue(this.vendor.post_code);
+      this.vendorFormGroup.controls.postCode.setValue(this.vendor.postCode);
       this.vendorFormGroup.controls.city.setValue(this.vendor.city);
       this.vendorFormGroup.controls.country.setValue(this.vendor.country);
     }

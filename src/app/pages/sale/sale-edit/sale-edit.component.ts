@@ -67,7 +67,7 @@ export class SaleEditComponent implements OnInit {
   private createSaleHeaderBody() {
     return {
       employee_id: this.saleFormGroup.controls.employeeId.value,
-      posting_date: moment(this.saleFormGroup.controls.posting_date.value).add(1, 'day')
+      posting_date: moment(this.saleFormGroup.controls.posting_date.value).add(2, 'hours')
     };
   }
 }
