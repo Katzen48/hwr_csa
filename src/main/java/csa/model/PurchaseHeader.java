@@ -3,8 +3,6 @@ package csa.model;
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 
-import org.jvnet.hk2.annotations.Contract;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,33 +15,37 @@ import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(value={"id", "employee"}, allowGetters=true)
-@Contract
-public class SalesHeader 
+@JsonIgnoreProperties(value={"id", "vendor"}, allowGetters=true)
+public class PurchaseHeader 
 {
 	private int id;
+	
 	@NonNull
-	private Employee employee;
+	private Vendor vendor;
 	@NonNull
 	@JsonProperty("posting_date")
 	private LocalDate postingDate;
+	@NonNull
+	@JsonProperty("delivery_date")
+	private LocalDate deliveryDate;
 	
 	// Only for JSON deserialization
 	@JsonIgnoreProperties(allowSetters=true)
-	private int employee_id;
+	private int vendor_id;
 	
 	@JsonCreator(mode=Mode.DISABLED)
-	@ConstructorProperties({"id", "employee_id", "posting_date"})
-	public SalesHeader(int id, @NonNull Employee employee, @NonNull LocalDate postingDate)
+	@ConstructorProperties({"id", "vendor_id", "posting_date", "delivery_date"})
+	public PurchaseHeader(int id, @NonNull Vendor vendor, @NonNull LocalDate postingDate, @NonNull LocalDate deliveryDate)
 	{
 		this.id = id;
-		this.employee = employee;
+		this.vendor = vendor;
 		this.postingDate = postingDate;
+		this.deliveryDate = deliveryDate;
 	}
 	
 	@JsonIgnore
-	public int getEmployeeId()
+	public int getVendorId()
 	{
-		return employee.getId();
+		return vendor.getId();
 	}
-}
+}	
