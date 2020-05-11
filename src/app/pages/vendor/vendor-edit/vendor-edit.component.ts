@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VendorService } from '../../../services/vendor.service';
 import { Vendor } from '../../../models/vendor';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-vendor-edit',
@@ -23,7 +24,8 @@ export class VendorEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               public vendorService: VendorService,
-              private router: Router
+              private router: Router,
+              private snackBar: MatSnackBar,
   ) {
   }
 
@@ -40,13 +42,25 @@ export class VendorEditComponent implements OnInit {
   }
 
   public async postNewVendor() {
-    await this.vendorService.postNewVendor(this.createVendorBody());
-    await this.router.navigate(['vendors']);
+    try {
+      await this.vendorService.postNewVendor(this.createVendorBody());
+      await this.router.navigate(['vendors']);
+    } catch (e) {
+      this.snackBar.open('Bitte geben Sie für die Postleizahl nur Zahlen an.', 'OK', {
+        verticalPosition: 'top'
+      });
+    }
   }
 
   public async updateVendor() {
-    await this.vendorService.updateVendor(this.routeId, this.createVendorBody());
-    await this.router.navigate(['vendors']);
+    try {
+      await this.vendorService.updateVendor(this.routeId, this.createVendorBody());
+      await this.router.navigate(['vendors']);
+    } catch (e) {
+      this.snackBar.open('Bitte geben Sie für die Postleizahl nur Zahlen an.', 'OK', {
+        verticalPosition: 'top'
+      });
+    }
   }
 
   public async deleteVendor() {
