@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ItemVariant } from '../../../models/itemVariant';
 import { ItemService } from '../../../services/item.service';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-item-variant-edit',
@@ -14,7 +15,8 @@ export class ItemVariantEditComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ItemVariantEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
-              public itemService: ItemService
+              public itemService: ItemService,
+              private snackBar: MatSnackBar
   ) {
   }
 
@@ -27,8 +29,15 @@ export class ItemVariantEditComponent implements OnInit {
   }
 
   public async postNewItemVariant() {
-    await this.itemService.postNewItemVariant(this.data.id, this.createItemVariantBody());
-    this.dialogRef.close();
+    try {
+      await this.itemService.postNewItemVariant(this.data.id, this.createItemVariantBody());
+      this.dialogRef.close();
+    } catch (e) {
+      if (e.status === 404) {
+        this.snackBar.open('Ein zugehöriger Artikel konnte nicht gefunden werden. Überprüfen Sie bitte, ob Sie bereits einen' +
+          ' Artikel erstellt haben.', null, {verticalPosition: 'top'});
+      }
+    }
   }
 
   public async updateItemVariant() {
@@ -39,8 +48,12 @@ export class ItemVariantEditComponent implements OnInit {
   private createItemVariantBody() {
     return {
       name: this.data.content.name,
-      price: this.price.value,
+      price: this.formatPrice(this.price.value),
       size: this.data.content.size
     };
+  }
+
+  private formatPrice(price) {
+    return price.replace(',', '.');
   }
 }

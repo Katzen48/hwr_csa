@@ -32,11 +32,11 @@
 
   <mat-form-field appearance="fill" class="long-form-field">
     <mat-label>Menge</mat-label>
-    <input matInput type="number" [(ngModel)]="data.content.quantity">
+    <input matInput type="number" [formControl]="quantity">
   </mat-form-field>
 
   <mat-label>Geliefert?</mat-label>
-  <mat-radio-group [(ngModel)]="data.content.delivered">
+  <mat-radio-group [formControl]="delivered">
     <mat-radio-button *ngFor="let option of options" [value]="option.value" color="accent" class="radio-btn">
       {{ option.name }}
     </mat-radio-button>
@@ -48,12 +48,12 @@
   <button mat-flat-button
           class="colored-btn"
           *ngIf="!data.content.id"
-          (click)="postNewPurchaseLine()">Speichern
+          (click)="postNewPurchaseLine()">Speichern und weiter
   </button>
   <button mat-flat-button
           class="colored-btn"
           *ngIf="data.content.id"
-          (click)="updatePurchaseLine()">Speichern
+          (click)="updatePurchaseLine()">Änderungen speichern
   </button>
   <button mat-raised-button [mat-dialog-close]="'cancel'">Abbrechen</button>
 </div>

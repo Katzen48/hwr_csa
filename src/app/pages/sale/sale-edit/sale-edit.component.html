@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="20px">
   <app-menu [currentTab]="'sales'"></app-menu>
 
-  <div class="heading">Buchungskopf</div>
+  <div class="heading">Verkaufskopf</div>
 
   <form [formGroup]="saleFormGroup" fxLayout="column" fxLayoutGap="20px">
     <mat-form-field appearance="fill" class="long-form-field">
@@ -23,8 +23,14 @@
     </mat-form-field>
 
     <div fxLayout="row" fxLayoutGap="20px">
-      <button mat-flat-button class="colored-btn" *ngIf="!routeId" (click)="postNewSaleHeader()">Speichern und weiter</button>
-      <button mat-flat-button class="colored-btn" *ngIf="routeId" (click)="updateSaleHeader()">Speichern</button>
+      <button mat-flat-button
+              class="colored-btn"
+              *ngIf="!routeId"
+              (click)="postNewSaleHeader()">Speichern und weiter</button>
+      <button mat-flat-button
+              class="colored-btn"
+              *ngIf="routeId"
+              (click)="updateSaleHeader()">Änderungen speichern</button>
       <button mat-raised-button *ngIf="routeId" (click)="deleteSaleHeader()">Löschen</button>
       <button mat-raised-button (click)="onCancel()">Abbrechen</button>
     </div>

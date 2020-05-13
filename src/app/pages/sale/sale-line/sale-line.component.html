@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="20px">
   <app-menu [currentTab]="'sales'"></app-menu>
 
-  <div class="heading">Buchungszeilen</div>
+  <div class="heading">Verkaufszeilen</div>
 
   <table mat-table [dataSource]="saleService.saleLines">
     <ng-container matColumnDef="itemVariant">
@@ -37,7 +37,7 @@
   </table>
 
   <div fxLayout="row" fxLayoutGap="20px">
-    <button mat-flat-button class="colored-btn" (click)="newSaleLine()">Neue Buchungszeile erstellen</button>
+    <button mat-flat-button class="colored-btn" (click)="newSaleLine()">Neue Verkaufszeile erstellen</button>
     <button mat-flat-button class="colored-btn" (click)="onPostSale()">Verkauf buchen</button>
     <button mat-raised-button (click)="onBack()">Zurück</button>
   </div>

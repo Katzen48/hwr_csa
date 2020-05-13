@@ -14,6 +14,8 @@ export class PurchaseLineEditComponent implements OnInit {
   public item = new FormControl();
   public itemVariant = new FormControl();
   public price = new FormControl();
+  public quantity = new FormControl();
+  public delivered = new FormControl();
   public itemVariants;
 
   public options = [
@@ -35,6 +37,8 @@ export class PurchaseLineEditComponent implements OnInit {
     } else {
       this.itemVariant.setValue(this.data.content.itemVariant);
       this.price.setValue(this.data.content.price);
+      this.quantity.setValue(this.data.content.quantity);
+      this.delivered.setValue(this.data.content.delivered);
     }
 
     await this.itemService.getAllItems();
@@ -57,9 +61,13 @@ export class PurchaseLineEditComponent implements OnInit {
   private createPurchaseLineBody() {
     return {
       item_variant_id: this.itemVariant.value.id,
-      price: this.price.value,
-      quantity: this.data.content.quantity,
-      delivered: this.data.content.delivered
+      price: this.formatPrice(this.price.value),
+      quantity: this.quantity.value,
+      delivered: this.delivered.value
     };
+  }
+
+  private formatPrice(price) {
+    return price.replace(',', '.');
   }
 }
