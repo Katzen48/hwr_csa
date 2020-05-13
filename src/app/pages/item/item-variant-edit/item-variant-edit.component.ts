@@ -35,7 +35,7 @@ export class ItemVariantEditComponent implements OnInit {
     } catch (e) {
       if (e.status === 404) {
         this.snackBar.open('Ein zugehöriger Artikel konnte nicht gefunden werden. Überprüfen Sie bitte, ob Sie bereits einen' +
-          ' Artikel erstellt haben.', null, {verticalPosition: 'top'});
+          ' Artikel erstellt haben.', 'OK', {verticalPosition: 'top'});
       }
     }
   }
@@ -54,6 +54,6 @@ export class ItemVariantEditComponent implements OnInit {
   }
 
   private formatPrice(price) {
-    return price.replace(',', '.');
+    return price.toString().replace(',', '.');
   }
 }
